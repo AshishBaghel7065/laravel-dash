@@ -78,6 +78,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/faq/create', function () {
             return view('Createandupdate.addfaq'); // This points to resources/views/Createandupdate/addfaq.blade.php
         })->name('faq.create.form');
+
+        Route::get('/faq/update/{id}', function () {
+            return view('Createandupdate.updatefaq'); // This points to resources/views/Createandupdate/addfaq.blade.php
+        })->name('faq.update');
         
     });
 });
@@ -87,7 +91,18 @@ Route::middleware(['auth'])->group(function () {
 // routes/web.php
 Route::get('/dashboard/faq/{id}', [FaqController::class, 'getById'])->name('faq.getById');
 Route::post('/faq/create', [FaqController::class, 'createFaq'])->name('faq.create');
+
+
+
+
+// Show the edit form
+Route::get('/faq/update/{id}', [FaqController::class, 'edit'])->name('faq.edit');
+
+// Handle the update request
 Route::post('/faq/update/{id}', [FaqController::class, 'updateFaq'])->name('faq.update');
+
+
+
 Route::delete('/faq/delete/{id}', [FaqController::class, 'deleteFaq'])->name('faq.delete');
 
 

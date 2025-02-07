@@ -676,3 +676,46 @@ table td img {
  gap: 15px;
 }
 
+input{
+    height: 45px;
+    border-radius: 2px !important;
+    margin: 5px 0px;
+}
+label{
+    margin-top: 20px;
+    font-weight: 600;
+}
+textarea{
+    height: 100px;
+}
+
+input{
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+textarea{
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.submit-btn{
+    background-color: #d58606;
+    color: white;
+    width: 100%;
+    margin: 20px 0px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    transition: all ease-in-out 700ms;
+}
+.submit-btn:hover{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #b87304;
+}
+.submit-btn:active{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #9f6404;
+}

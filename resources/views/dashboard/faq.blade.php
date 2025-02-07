@@ -57,7 +57,10 @@
                         <td>
                            <div class="action-container">
                             <button onclick="fetchFaq({{ $faq->id }})" class="view-btn"><i class="fa-regular fa-eye"></i></button>
-                            <a href="#" class="edit-btn"><i class="fa-solid fa-pen"></i></a>
+                            <a href="{{ route('faq.edit', $faq->id) }}" class="edit-btn">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            
                             <a href="#" class="delete-btn" onclick="openDeleteModal({{ $faq->id }})">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
@@ -119,24 +122,7 @@
 </div>
 
 <script>
-    function fetchFaq(id) {
-        fetch(`/dashboard/faq/${id}`)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('modal-question').textContent = data.question;
-                document.getElementById('modal-answer').textContent = data.answer;
-                document.getElementById('modal-written-by').textContent = data.written_by;
 
-                document.getElementById('faqModal').style.display = 'block';
-                document.getElementById('overlay').style.display = 'block';
-            })
-            .catch(error => console.error('Error fetching FAQ:', error));
-    }
-
-    function closeModal() {
-        document.getElementById('faqModal').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none';
-    }
 </script>
 
 @endsection

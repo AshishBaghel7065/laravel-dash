@@ -11,10 +11,16 @@
 
                 <!-- Question -->
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-8">
                         <div class="form-group">
                             <label for="question">Question:</label>
                             <input type="text" class="form-control" id="question" name="question" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="written_by">Written By:</label>
+                            <input type="text" class="form-control" id="written_by" name="written_by" required>
                         </div>
                     </div>
                 </div>
@@ -31,12 +37,7 @@
 
                 <!-- Written By -->
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="written_by">Written By:</label>
-                            <input type="text" class="form-control" id="written_by" name="written_by" required>
-                        </div>
-                    </div>
+                 
                 </div>
 
                 <!-- Submit Button -->

@@ -47,27 +47,32 @@ class FaqController
         }
     }
 
-    // Update FAQ and redirect to the dashboard
     public function updateFaq(Request $request, $id)
     {
         try {
+            // Validate the input data
             $validatedData = $request->validate([
-                'question' => 'required|string',
+                'question' => 'required|string|max:255',
                 'answer' => 'required|string',
-                'written_by' => 'required|string',
+                'written_by' => 'required|string|max:100',
             ]);
-
+    
+            // Find the FAQ by ID
             $faq = Faq::find($id);
             if (!$faq) {
                 return back()->withErrors(['message' => 'FAQ not found']);
             }
-
+    
+            // Update FAQ details
             $faq->update($validatedData);
+    
+            // Redirect with success message
             return redirect()->route('dashboard.faq')->with('success', 'FAQ updated successfully');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors());
         }
     }
+    
     public function deleteFaq($id)
     {
         $faq = Faq::find($id);
@@ -91,6 +96,21 @@ class FaqController
         return response()->json($faq);
     }
     
+    public function edit($id)
+    {
+        // Find the FAQ by ID
+        $faq = Faq::find($id);
+    
+        // Check if the FAQ exists
+        if (!$faq) {
+            return redirect()->route('dashboard.faq')->withErrors(['message' => 'FAQ not found']);
+        }
+    
+        // Return the edit view with FAQ data
+        return view('Createandupdate.updatefaq', compact('faq'));
+    }
+    
+
     
 
 }

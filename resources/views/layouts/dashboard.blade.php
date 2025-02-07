@@ -34,6 +34,13 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/dashboard/service">
+                            <div class="blog">
+                                <i class="fa-solid fa-user-doctor"></i> Service
+                            </div>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/dashboard/blog">
                             <div class="blog">
                                 <i class="fa-solid fa-comments"></i> Blog
