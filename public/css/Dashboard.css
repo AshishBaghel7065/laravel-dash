@@ -1,0 +1,678 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+.ubuntu-light {
+    font-family: "Ubuntu", serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.ubuntu-regular {
+    font-family: "Ubuntu", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.ubuntu-medium {
+    font-family: "Ubuntu", serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.ubuntu-bold {
+    font-family: "Ubuntu", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.ubuntu-light-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.ubuntu-regular-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.ubuntu-medium-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.ubuntu-bold-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 700;
+    font-style: italic;
+}
+
+
+.dashboard-main {
+    display: flex;
+    height: 100vh;
+}
+
+
+.nav-aside.hidden {
+    width: 0;
+    padding: 0;
+}
+
+.aside-nav-menu h2 {
+    text-align: center;
+
+    margin-bottom: 20px;
+
+}
+
+.aside-nav-menu ul {
+    list-style-type: none;
+}
+
+.aside-nav-menu ul li {
+    padding: 10px;
+    background-color: transparent;
+
+}
+
+.blog {
+    color: rgb(102, 102, 102) !important;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.blog i {
+    padding: 5px;
+    width: 38px;
+
+}
+
+.aside-nav-menu ul li:hover .blog {
+    color: rgb(1, 12, 42) !important;
+}
+
+.aside-nav-menu ul li:hover {
+    background-color: rgb(246, 246, 246);
+    color: black;
+    border-radius: 5px;
+}
+
+.aside-nav-menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.screen {
+    flex-grow: 1;
+    transition: margin-left 0.7s ease-in-out, width 0.6s ease-in-out;
+    width: calc(100% - 250px);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: rgb(2, 2, 55);
+    padding: 10px 20px !important;
+
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: rgb(167, 167, 167);
+    cursor: pointer;
+}
+
+.toggle-btn:hover {
+    color: rgb(2, 2, 55)
+}
+
+.profile {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-name {
+    background: #f39c12;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    color: white;
+}
+
+.profiledropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 190px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.profiledropdown .prom {
+    padding: 5px;
+    text-align: center;
+    background-color: #f39c12;
+    color: white;
+    font-size: 19px;
+
+}
+
+.profile:hover .profiledropdown {
+    display: block;
+}
+
+.profiledropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: 600 !important;
+}
+
+.profiledropdown a:hover {
+    background: rgb(243, 243, 243);
+}
+
+/* Dropdown styling */
+.dropdown {
+    display: none;
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.dropdown-active {
+    display: block;
+}
+
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* When sidebar is hidden */
+.nav-aside.hidden+.screen {
+    width: 100%;
+    margin-left: 0;
+}
+
+/* Sidebar */
+.nav-aside {
+    width: 260px;
+    background-color: white;
+    color: rgb(2, 2, 55);
+    padding: 15px 20px;
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+    overflow: hidden;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+}
+
+/* When sidebar is hidden */
+.nav-aside.hidden {
+    width: 0;
+    padding: 0;
+}
+
+/* Sidebar menu items */
+.aside-nav-menu ul li {
+    padding: 10px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.nav-aside.hidden .aside-nav-menu ul li {
+    opacity: 0;
+    visibility: hidden;
+    /* Make text hidden */
+}
+
+/* Adjust the links */
+.aside-nav-menu ul li a {
+    color: rgb(2, 2, 55);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.nav-aside.hidden .aside-nav-menu ul li a {
+    opacity: 0;
+}
+
+.main-content {
+    background-color: rgb(243, 243, 243);
+    height: 93%;
+    overflow: scroll;
+    padding: 26px
+}
+
+
+.blog-dropdown {
+    display: flex;
+    align-items: center;
+    background-color: yellow;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: 600;
+}
+
+@media screen and (max-width:576px) {
+    .nav-aside {
+        width: 183px;
+        padding: 5px;
+    }
+
+    .blog {
+        font-size: 15px;
+    }
+
+    .main-content {
+        padding: 3px;
+    }
+
+    .dashboard {
+        padding: 15px 2px !important;
+    }
+
+    footer {
+        padding: 5px;
+    }
+
+    footer p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+}
+
+.logout {
+    background-color: transparent;
+    border: none;
+    padding: 10px 10px;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.logout:hover {
+    background-color: rgb(243, 243, 243);
+}
+
+footer {
+    padding: 10px 20px;
+    position: absolute;
+    background-color: white;
+    text-align: center;
+    width: 100%;
+    font-family: "Ubuntu", serif;
+    font-weight: 600;
+    font-style: normal;
+
+
+}
+
+footer span {
+    color: #f39c12;
+}
+
+.dashboard {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.show-card {
+    margin: 5px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.show-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.show-head i {
+    background-color: rgb(48, 48, 48);
+    padding: 7px 14px;
+    border-radius: 40px;
+    color: white;
+}
+
+.table-box {
+    padding: 3px;
+    overflow: scroll;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+table th,
+table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Table Box Styling */
+.table-box th,
+.table-box td {
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap;
+    max-width: 200px !important;
+    height: 40px !important;
+    padding: 10px;
+    z-index: 99 !important;
+}
+
+table th {
+    background: #008cbb;
+    color: white;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background: #f5f5f5;
+    transition: 0.3s;
+}
+
+table td img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+/* Mobile View: Make table scrollable */
+@media screen and (max-width: 768px) {
+    .table-box {
+        overflow-x: auto;
+        display: block;
+        white-space: normal;
+    }
+
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+
+    .viewpopup-content {
+        background-color: rgb(238, 238, 238);
+        padding: 20px 2px !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow-y: scroll;
+        position: relative;
+        border-radius: 10px;
+    }
+}
+
+.edit-btn {
+    color: rgb(218, 218, 218);
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+
+}
+
+.edit-btn:hover {
+    color: #0687ae;
+}
+
+.view-btn {
+    color: rgb(218, 218, 218);
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+
+}
+
+.view-btn:hover {
+    color: black;
+}
+
+.delete-btn {
+    color: rgb(218, 218, 218);
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+
+}
+
+.delete-btn:hover {
+    color: red;
+}
+
+.btn-container {
+    display: flex;
+    gap: 20px;
+}
+
+
+
+/* Pop-up Overlay */
+.view-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it is above all other content */
+}
+
+/* Modal Content Box */
+.viewpopup-content {
+    background-color: rgb(238, 238, 238);
+    padding: 30px;
+    width: 60%;
+    height: 96%;
+    overflow-y: scroll;
+    position: relative;
+    border-radius: 10px;
+
+}
+
+/* Modal Header */
+.popup-header {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+/* Modal Body */
+.popup-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+/* Modal Image (Optional if you include an image) */
+.popup-image {
+    border-radius: 12px !important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+/* Modal Date */
+.popup-date {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* Background overlay for the delete popup */
+.delete-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 9999; /* Ensure it appears above other elements */
+}
+
+/* Style for the content of the modal */
+.deletepopup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the modal */
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for close button */
+.deletepopup-content .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+}
+
+/* Style for the heading inside the modal */
+.deletepopup-content .m-2 h5 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Body content of the modal */
+.popup-body {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Style for the action buttons */
+.popup-actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.popup-actions .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-actions .btn-danger {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+}
+
+.popup-actions .btn-danger:hover {
+    background-color: #c9302c;
+}
+
+.popup-actions .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.popup-actions .btn-secondary:hover {
+    background-color: #5a6268;
+}
+.add-faq{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.add-faq button{
+    background-color: #f39c12;
+    color: white;
+    padding: 7px 20px;
+    border-radius: 40px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all ease-in-out 200ms
+} 
+.add-faq button:hover{
+    box-shadow: none;
+}
+.add-faq button:active{
+    box-shadow: none;
+    background-color: #d58606;
+}
+
+.close-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.action-container{
+    display: flex;
+    align-items: center;
+ gap: 15px;
+}
+
