@@ -97,14 +97,27 @@ Route::post('/faq/create', [FaqController::class, 'createFaq'])->name('faq.creat
 
 // Show the edit form
 Route::get('/faq/update/{id}', [FaqController::class, 'edit'])->name('faq.edit');
-
 // Handle the update request
 Route::post('/faq/update/{id}', [FaqController::class, 'updateFaq'])->name('faq.update');
-
-
-
 Route::delete('/faq/delete/{id}', [FaqController::class, 'deleteFaq'])->name('faq.delete');
 
+
+
+use App\Http\Controllers\AchievementController;
+
+// Achievement Routes
+Route::prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::get('achievements', [AchievementController::class, 'getDashboardAchievements'])->name('achievement');
+    Route::get('/achievement/{id}', [AchievementController::class, 'getById'])->name('achievement.getById');
+    Route::get('achievement/create', [AchievementController::class, 'createAchievementForm'])->name('achievement.create');
+    Route::post('achievement', [AchievementController::class, 'createAchievement'])->name('achievement.store');
+    Route::get('achievement/{id}/edit', [AchievementController::class, 'edit'])->name('achievement.edit');
+    Route::put('achievement/{id}', [AchievementController::class, 'updateAchievement'])->name('achievement.update');
+    Route::delete('achievement/{id}', [AchievementController::class, 'deleteAchievement'])->name('achievement.delete');
+});
+
+// For Home page or general public view
+Route::get('achievements', [AchievementController::class, 'getAllAchievements'])->name('achievements.all');
 
 
 // GET DATA With Auth 

@@ -58,3 +58,18 @@ function closeModal() {
     document.getElementById('faqModal').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
 }
+
+
+function fetchAchievement(id) {
+    fetch(`/dashboard/achievement/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-count').textContent = data.count;
+
+            document.getElementById('achievementModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching achievement:', error));
+}
+

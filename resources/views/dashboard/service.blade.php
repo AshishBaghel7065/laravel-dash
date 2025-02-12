@@ -81,9 +81,6 @@
 <!-- Delete Confirmation Popup Modal -->
 <div id="deletePopup" class="delete-popup" style="display: none;">
     <div class="deletepopup-content">
-        <div class="close-btn" onclick="closeDeleteModal()">
-            <i class="fa-solid fa-circle-xmark"></i>
-        </div>
         <div class="m-2">
             <h5 class="mx-2">Are you sure you want to delete this service?</h5>
         </div>
@@ -104,7 +101,7 @@
 <div class="modal" id="serviceModal">
     <div class="view-popup">
         <div class="viewpopup-content">
-            <div class="close-btn" onclick="closeModal()">
+            <div class="close-btn" onclick="closeModalService()">
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
             <h5 class="mx-3">Service Detail</h5>
@@ -140,7 +137,7 @@
         document.getElementById('modal-image').src = image;
         document.getElementById('serviceModal').style.display = 'block';
     }
-    function closeModal() {
+    function closeModalService() {
         document.getElementById('serviceModal').style.display = 'none';
     }
 </script>
