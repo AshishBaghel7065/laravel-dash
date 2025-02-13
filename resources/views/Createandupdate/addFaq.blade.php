@@ -6,7 +6,7 @@
     <div class="container mt-4">
         <div class="add-faq-box">
             <h5>Add FAQ</h5>
-            <form action="{{ route('faq.create') }}" method="POST" enctype="multipart/form-data" class="add-form">
+            <form action="{{ route('dashboard.faq.create') }}" method="POST" enctype="multipart/form-data" class="add-form">
                 @csrf <!-- CSRF Token for security -->
 
                 <!-- Question -->

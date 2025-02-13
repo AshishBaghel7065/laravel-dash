@@ -646,6 +646,8 @@ table td img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .add-faq button{
     background-color: #f39c12;
@@ -680,6 +682,13 @@ input{
     height: 45px;
     border-radius: 2px !important;
     margin: 5px 0px;
+}
+select{
+    height: 45px;
+    border-radius: 2px !important;
+    margin: 5px 0px;
+    box-shadow: none !important;
+    border: none !important;
 }
 label{
     margin-top: 20px;
@@ -718,4 +727,12 @@ textarea{
 .submit-btn:active{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     background-color: #9f6404;
+}
+.modal{
+position: relative;
+}
+.sp-close-btn{
+    position: absolute;
+    top: 30px;
+    left: 30px;
 }

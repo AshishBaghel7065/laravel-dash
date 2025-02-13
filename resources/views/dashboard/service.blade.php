@@ -29,7 +29,7 @@
 
 <div class="add-faq">
     <h3 class="p-2">Service Management</h3>
-    <button onclick="addService()">Add Service</button>
+    <a href="/dashboard/service/create"><button>Add Service</button></a>
 </div>
 
 <div class="dashboard">

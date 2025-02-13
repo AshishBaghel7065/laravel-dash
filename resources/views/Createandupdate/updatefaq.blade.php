@@ -8,7 +8,7 @@
             <h5>Edit FAQ</h5>
 
             <!-- Form to update FAQ -->
-            <form action="{{ route('faq.update', $faq->id) }}" method="POST">
+            <form action="{{ route('dashboard.faq.update', $faq->id) }}" method="POST">
                 @csrf
                 @method('POST')  <!-- Since we are using POST for updating -->
 

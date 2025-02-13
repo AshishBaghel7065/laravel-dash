@@ -57,14 +57,14 @@
                         <td>
                            <div class="action-container">
                             <button onclick="fetchFaq({{ $faq->id }})" class="view-btn"><i class="fa-regular fa-eye"></i></button>
-                            <a href="{{ route('faq.edit', $faq->id) }}" class="edit-btn">
+                            <a href="{{ route('dashboard.faq.edit', $faq->id) }}" class="edit-btn">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
                             
                             <a href="#" class="delete-btn" onclick="openDeleteModal({{ $faq->id }})">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
-                            <form id="deleteForm{{ $faq->id }}" action="{{ route('faq.delete', $faq->id) }}" method="POST" style="display: none;">
+                            <form id="deleteForm{{ $faq->id }}" action="{{ route('dashboard.faq.delete', $faq->id) }}" method="POST" style="display: none;">
                                 @csrf
                                 @method('DELETE')
                             </form>
@@ -122,6 +122,49 @@
 </div>
 
 <script>
+
+
+let deleteFaqId = null;
+
+// Open the delete confirmation modal and set the FAQ ID
+function openDeleteModal(id) {
+    deleteFaqId = id;
+    document.getElementById('deletePopup').style.display = 'block';
+}
+
+// Close the delete confirmation modal
+function closeDeleteModal() {
+    document.getElementById('deletePopup').style.display = 'none';
+}
+
+// Submit the delete form
+function deleteFaqFromDatabase() {
+    if (deleteFaqId) {
+        // Find the form for the specific FAQ and submit it
+        document.getElementById(`deleteForm${deleteFaqId}`).submit();
+    }
+}
+
+
+
+function fetchFaq(id) {
+    fetch(`/dashboard/faq/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('modal-question').textContent = data.question;
+            document.getElementById('modal-answer').textContent = data.answer;
+            document.getElementById('modal-written-by').textContent = data.written_by;
+
+            document.getElementById('faqModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching FAQ:', error));
+}
+
+function closeModal() {
+    document.getElementById('faqModal').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+}
 
 </script>
 

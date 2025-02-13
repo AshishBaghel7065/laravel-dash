@@ -2,7 +2,12 @@
 
 @section('content')
 
-<h3 class="p-2">Achievements</h3>
+
+<div class="add-faq">
+    <h3 class="p-2">Achievements Management</h3>
+    <a href="/dashboard/achievement/create"><button>Add Button</button></a>
+</div>
+
 <div class="dashboard">
     <div class="container">
         <div class="table-box">
@@ -16,87 +21,95 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($achievements as $index => $achievement)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $achievement->title }}</td>
-                            <td>{{ $achievement->count }}</td>
-                            <td>
-                                <div class="btn-container">
-                                    <button onclick="fetchAchievement( {{$achievement->id}})"><i class="fa-regular fa-eye"></i></button>
-                                <a href="{{ route('dashboard.achievement.edit', $achievement->id) }}" class="view-btn"><i class="fa-solid fa-pen"></i></a>
-                                <form action="{{ route('dashboard.achievement.delete', $achievement->id) }}" method="POST" style="display:inline;" >
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-                                </form>
+                    @foreach ($achievements->reverse() as $index => $achievement)
+                    <tr>
+                        <td>{{ $achievements->count() - $index }}</td>
+                        <td>{{ $achievement->title }}</td>
+                        <td>{{ $achievement->count }}</td>
+                        <td>
+                            <div class="btn-container">
+                                <button onclick="fetchAchievement({{ $achievement->id }})" class="view-btn">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <a href="{{ route('dashboard.achievement.edit', $achievement->id) }}" class="edit-btn">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                                <button type="button" class="delete-btn" onclick="openDeleteModal({{ $achievement->id }})">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
                             </div>
-                                  
-                            </td>
-                        </tr>
-                    @endforeach
+                        </td>
+                    </tr>
+                @endforeach
+                
+                
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-
-<!-- Delete Confirmation Popup Modal -->
+<!-- Delete Confirmation Modal -->
 <div id="deletePopup" class="delete-popup" style="display: none;">
     <div class="deletepopup-content">
-        <div class="m-2">
-            <h5 class="mx-2">Are you sure you want to delete this service?</h5>
-        </div>
-        <div class="popup-body">
-            <p>This action cannot be undone.</p>
-        </div>
+        <h5 class="mx-2">Are you sure you want to delete this achievement?</h5>
+        <p>This action cannot be undone.</p>
         <div class="popup-actions">
-            <button class="btn btn-danger" onclick="deleteService()">Delete</button>
+            <form id="delete-form" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
             <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
         </div>
     </div>
 </div>
 
-<!-- Overlay -->
-<div class="overlay" id="overlay" onclick="closeModal()"></div>
-
-<!-- Service View Modal -->
-<div class="modal" id="serviceModal">
+<!-- Achievement View Modal -->
+<div class="modal" id="achievementModal">
     <div class="view-popup">
         <div class="viewpopup-content">
-            <div class="close-btn" onclick="closeModalService()">
+            <div class="close-btn" onclick="achievementcloseModal()">
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
-            <h5 class="mx-3">Service Detail</h5>
+            <h5>Achievement Detail</h5>
             <div class="popup-body">
                 <p><strong>Title:</strong> <span id="modal-title"></span></p>
                 <p><strong>Count:</strong> <span id="modal-count"></span></p>
-                <button onclick="closeAchievementModal()">Close</button>
             </div>
         </div>
     </div>
 </div>
+<div class="overlay" id="overlay" onclick="achievementcloseModal()"></div>
 
 <script>
-    function openDeleteModal() {
+    let deleteId = null;
+
+    function fetchAchievement(id) {
+        // Assuming achievementData contains the necessary data for the modal
+        const data = achievementData[id];
+        document.getElementById('modal-title').textContent = data.title;
+        document.getElementById('modal-count').textContent = data.count;
+        document.getElementById('achievementModal').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function achievementcloseModal() {
+        document.getElementById('achievementModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function openDeleteModal(id) {
+        deleteId = id;
+        // Set the action URL for the delete form
+        const form = document.getElementById('delete-form');
+        form.action = `/dashboard/achievement/${id}`;
         document.getElementById('deletePopup').style.display = 'block';
     }
+
     function closeDeleteModal() {
         document.getElementById('deletePopup').style.display = 'none';
-    }
-    function deleteService() {
-        alert('Service deleted successfully!');
-        closeDeleteModal();
-    }
-    function viewService(name,count) {
-        document.getElementById('modal-title').innerText = name;
-        document.getElementById('modal-count').innerText = count;
-        document.getElementById('serviceModal').style.display = 'block';
-    }
-    function closeModalService() {
-        document.getElementById('serviceModal').style.display = 'none';
+        deleteId = null;
     }
 </script>
-
 @endsection
