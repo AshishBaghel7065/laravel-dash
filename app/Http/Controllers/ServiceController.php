@@ -36,45 +36,61 @@ class ServiceController
     public function createService(Request $request)
     {
         try {
+            // Validate the request
             $validatedData = $request->validate([
                 'service' => 'required|string|max:255',
-                'image' => 'required|string',  // Assuming it's a URL or file path
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
                 'category' => 'required|string|max:255',
                 'description' => 'required|string',
+                'active' => 'required|boolean',
             ]);
-
+    
+            // Handle Image Upload
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('services', 'public');
+                $validatedData['image'] = $imagePath;
+            }
+    
+            // Create the service record
             Service::create($validatedData);
+    
             return redirect()->route('dashboard.service')->with('success', 'Service created successfully');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors());
         }
     }
 
-    // Update an existing service
     public function updateService(Request $request, $id)
     {
-        try {
-            $validatedData = $request->validate([
-                'service' => 'required|string|max:255',
-                'image' => 'required|string',  // Assuming it's a URL or file path
-                'category' => 'required|string|max:255',
-                'description' => 'required|string',
-            ]);
+        // Validate the form data
+        $validated = $request->validate([
+            'service' => 'string|max:255',
+            'category' => 'string|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
+            'active' => 'boolean',
+            'description' => 'string',
+        ]);
     
-            // Find the service by ID
-            $service = Service::find($id);
-            if (!$service) {
-                return back()->withErrors(['message' => 'Service not found']);
-            }
+        // Fetch the service to be updated
+        $service = Service::findOrFail($id);
     
-            // Update service details
-            $service->update($validatedData);
+        // Update the service details
+        $service->service = $request->service;
+        $service->category = $request->category;
+        $service->active = $request->active;
+        $service->description = $request->description;
     
-            // Redirect with success message
-            return redirect()->route('dashboard.service')->with('success', 'Service updated successfully');
-        } catch (ValidationException $e) {
-            return back()->withErrors($e->errors());
+        // Handle the image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('services', 'public');
+            $service->image = $imagePath;
         }
+    
+        // Save the updated service data
+        $service->save();
+    
+        // Redirect with a success message
+        return redirect()->route('dashboard.service', $service->id)->with('success', 'Service updated successfully!');
     }
 
     // Delete a service
@@ -99,6 +115,13 @@ class ServiceController
         return response()->json($service);
     }
 
+    public function getByIds($id)
+{
+    // Fetch the service by ID
+    $service = Service::findOrFail($id);
+    // Return the view with the service data
+    return view('Createandupdate.updateservice', compact('service'));
+}
     // Show form to edit an existing service
     public function edit($id)
     {

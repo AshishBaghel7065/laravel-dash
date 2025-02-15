@@ -13,12 +13,8 @@ class Service extends Model
     protected $table = 'services';
 
     // Specify the fillable attributes for mass assignment
-    protected $fillable = [
-        'service',    // Name of the service
-        'image',      // Image URL or path
-        'category',   // Category of the service
-        'description',// Description of the service
-    ];
+    protected $fillable = ['service', 'image', 'category', 'description' ,'active'];
+
 
     // You can also specify hidden fields if you don't want them to appear in arrays or JSON responses
     protected $hidden = [];

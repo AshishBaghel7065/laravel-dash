@@ -2,11 +2,19 @@
 
 @section('content')
 <div class="main-content">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="container mt-4">
         <div class="update-service-box">
             <h5>Update Service</h5>
-            {{-- action="{{ route('service.update', $service->id) }}" --}}
-            <form  method="POST" enctype="multipart/form-data" class="add-form">
+            <form method="POST" enctype="multipart/form-data" class="add-form" action="{{ route('dashboard.service.update', $service->id) }}">
                 @csrf <!-- CSRF Token for security -->
                 @method('PUT') <!-- This is required for PUT requests -->
                 
@@ -15,8 +23,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label for="service">Service Name:</label>
-                            {{-- value="{{ old('service', $service->service) }}" --}}
-                            <input type="text" class="form-control" id="service" name="service"  required>
+                            <input type="text" class="form-control" id="service" name="service" value="{{ old('service', $service->service) }}" required>
                         </div>
                     </div>
                 </div>
@@ -27,11 +34,11 @@
                         <div class="form-group">
                             <label for="category">Category:</label>
                             <select class="form-control" id="category" name="category" required>
-                                {{-- <option value="Value1" {{ $service->category == 'Value1' ? 'selected' : '' }}>Value 1</option>
+                                <option value="Value1" {{ $service->category == 'Value1' ? 'selected' : '' }}>Value 1</option>
                                 <option value="Value2" {{ $service->category == 'Value2' ? 'selected' : '' }}>Value 2</option>
                                 <option value="Value3" {{ $service->category == 'Value3' ? 'selected' : '' }}>Value 3</option>
                                 <option value="Value4" {{ $service->category == 'Value4' ? 'selected' : '' }}>Value 4</option>
-                                <option value="Value5" {{ $service->category == 'Value5' ? 'selected' : '' }}>Value 5</option> --}}
+                                <option value="Value5" {{ $service->category == 'Value5' ? 'selected' : '' }}>Value 5</option>
                             </select>
                         </div>
                     </div>
@@ -40,10 +47,11 @@
                     <div class="col-lg-5">
                         <div class="form-group">
                             <label for="image">Image:</label>
+                         
                             <input type="file" class="form-control" id="image" name="image">
-                            {{-- @if ($service->image)
-                                <img src="{{ asset('storage/' . $service->image) }}" alt="Current Image" width="100" />
-                            @endif --}}
+                            @if ($service->image)
+                            <img src="{{ asset('storage/' . $service->image) }}" alt="Current Image" class="my-4" width="100" />
+                        @endif
                         </div>
                     </div>
 
@@ -51,21 +59,20 @@
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="status">Active / Inactive</label>
-                            <select class="form-control" id="status" name="status" required>
-                                {{-- <option value="active" {{ $service->status == 'active' ? 'selected' : '' }}>Active</option>
-                                <option value="inactive" {{ $service->status == 'inactive' ? 'selected' : '' }}>Inactive</option> --}}
+                            <select class="form-control" id="active" name="active" required>
+                                <option value="1" {{ $service->active == true ? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ $service->active == false ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Description -->
+                <!-- Description with Summernote -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            {{-- {{ old('description', $service->description) }} --}}
-                            <textarea class="form-control" id="description" name="description" required></textarea>
+                            <textarea class="form-control" id="description" name="description" required>{{ old('description', $service->description) }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -80,4 +87,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#description').summernote({
+            height: 300,
+            placeholder: 'Enter service description here...',
+            tabsize: 2,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
+</script>
 @endsection

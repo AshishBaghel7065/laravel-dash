@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AchievementController;
-
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,26 +60,37 @@ Route::middleware(['auth'])->group(function () {
 
 
         // All service routes
-
-        // Show the form to create a new service
         Route::get('/service/create',  fn() => view('Createandupdate.addservice'))->name('service.create.form');
-        // Show the form to edit an existing service
         Route::get('/service/update/{id}', fn() => view('Createandupdate.updateservice'))->name('service.update');
         // Get service by ID
+
         Route::get('/service/{id}', [ServiceController::class, 'getById'])->name('service.getById');
-        // Handle form submissions for creating and updating services
         Route::post('/service', [ServiceController::class, 'createService'])->name('service.store');
+        Route::get('/service/update/{id}', [ServiceController::class, 'getByIds'])->name('service.getByIds');
         Route::put('/service/update/{id}', [ServiceController::class, 'updateService'])->name('service.update');
-        // Delete a service
         Route::delete('/service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
+
+        // All about routes
+        Route::get('/about/create', fn() => view('Createandupdate.addabout'))->name('about.create.form');
+        Route::get('/about/update/{id}', fn() => view('Createandupdate.updateabout'))->name('about.update.form');
+        // Get about by ID
+        Route::get('/about/{id}', [AboutController::class, 'getById'])->name('about.getById');
+        // Create new about
+        Route::post('/about', [AboutController::class, 'createAbout'])->name('about.store');
+        // Get about by ID for update form
+        Route::get('/about/update/{id}', [AboutController::class, 'getByIds'])->name('about.getByIds');
+
+        // Update about details
+        Route::put('/about/update/{id}', [AboutController::class, 'updateAbout'])->name('about.update');
+
+        // Delete about
+        Route::delete('/about/{id}', [AboutController::class, 'destroy'])->name('about.destroy');
+                
+ 
         
     });
 });
-
-
-
-
 
 
 

@@ -1,55 +1,72 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<style>
+    .modal, .overlay {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: transparent;
+        z-index: 1000;
+    }
+    .overlay {
+        width: 100%;
+        height: 100%;
+        background: rgba(24, 24, 24, 0.5);
+        z-index: 999;
+    }
+    .popup-content {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+</style>
 
-<h3 class="p-2">About Us</h3>
+
+<div class="add-faq">
+    <h3 class="p-2">About Management</h3>
+    <a href="/dashboard/about/create"><button>Add About</button></a>
+</div>
+
 <div class="dashboard">
     <div class="container">
         <div class="table-box">
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th style="width:5%">#</th>
-                        <th style="width:20%">Title</th>
-                        <th style="width:20%">Image</th>
-                        <th style="width:20%">Small Description</th>
-                        <th style="width:25%">Big Description</th>
-                        <th style="width:10%">Action</th>
+                        <th>Sr. No</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $aboutData = [
-                            [
-                                'title' => 'About Our Company',
-                                'image' => 'images/about.jpg',
-                                'small_description' => 'We provide cutting-edge digital solutions.',
-                                'big_description' => 'With years of experience, we specialize in web and mobile development, delivering top-notch solutions worldwide.'
-                            ],
-                            [
-                                'title' => 'Our Vision',
-                                'image' => 'images/vision.jpg',
-                                'small_description' => 'Empowering businesses with innovative tech.',
-                                'big_description' => 'Our vision is to be a globally recognized tech company known for innovation, reliability, and excellence.'
-                            ]
-                        ];
-                    @endphp
-                    @foreach ($aboutData as $index => $about)
+                    @foreach($about as $index => $about)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $about['title'] }}</td>
+                        <td><img src="{{ asset('storage/'.$about->image) }}" alt="image Image" width="50"></td>
+                        <td>{{ $about->title }}</td>
+                        <td>{{ $about->description }}</td>
                         <td>
-                            <img src="{{ asset($about['image']) }}" alt="About Image" class="img-thumbnail" width="80">
-                        </td>
-                        <td>{{ $about['small_description'] }}</td>
-                        <td>{{ Str::limit($about['big_description'], 50) }}</td>
-                        <td>
-                            <div class="btn-container">
-                                <button onclick="viewService('Web Development', 'Providing high-quality web development services.', 'web-development', 'https://via.placeholder.com/50')" class="view-btn"><i class="fa-regular fa-eye"></i></button>
-                                <a href="#" class="view-btn"><i class="fa-solid fa-pen"></i></a>
-                                <a href="#" class="delete-btn" onclick="openDeleteModal()"><i class="fa-solid fa-trash"></i></a>
+                            <div class="action-container">
+                            
+                                    <button class="view-btn" onclick="fetchAbout({{ $about->id }})"><i class="fa-regular fa-eye"></i></button>
+                              
+                                
+                                <a href="{{ route('dashboard.about.update', $about->id) }}" class="edit-btn">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                                
+                                <button  class="delete-btn" onclick="openDeleteModal({{ $about->id }})" >
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
                             </div>
                         </td>
+                     
                     </tr>
                     @endforeach
                 </tbody>
@@ -58,68 +75,79 @@
     </div>
 </div>
 
+<!-- View Modal -->
+<div id="viewModal" class="modal">
+    <div class="view-popup">
+        <div class="close-btn" onclick="closeViewModal()">
+            <i class="fa-solid fa-circle-xmark text-white"></i>
+        </div>
+   
+        <div class="viewpopup-content">
+       
+            <div class="popup-body">
+                <h1 class="">Service Detail</h1>
+                <img id="modal-service-image" src="" alt="Service Image" width="300">
+                <h4 class="my-3"><strong>Title:</strong> <span id="about-title"></span></h4>
+        <p><strong>Description:</strong> <span id="about-description"></span></p>
+            
+         
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- Delete Confirmation Popup Modal -->
-<div id="deletePopup" class="delete-popup" style="display: none;">
+
+<!--<!-- Delete Confirmation Popup Modal -->
+<div id="deleteModal" class="delete-popup" style="display: none;">
     <div class="deletepopup-content">
         <div class="m-2">
-            <h5 class="mx-2">Are you sure you want to delete this service?</h5>
+            <h5 class="mx-2">Are you sure you want to delete this FAQ?</h5>
         </div>
         <div class="popup-body">
             <p>This action cannot be undone.</p>
         </div>
         <div class="popup-actions">
-            <button class="btn btn-danger" onclick="deleteService()">Delete</button>
+            <form id="deleteForm" action="#" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
             <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
         </div>
     </div>
 </div>
 
-<!-- Overlay -->
-<div class="overlay" id="overlay" onclick="closeModal()"></div>
 
-<!-- Service View Modal -->
-<div class="modal" id="serviceModal">
-    <div class="view-popup">
-        <div class="viewpopup-content">
-            <div class="close-btn" onclick="closeModalService()">
-                <i class="fa-solid fa-circle-xmark"></i>
-            </div>
-            <h5 class="mx-3">Service Detail</h5>
-            <div class="popup-body">
-                <p><strong>Name:</strong></p>
-                <p id="modal-name"></p>
-                <p><strong>Description:</strong></p>
-                <p id="modal-description"></p>
-                <p><strong>Slug:</strong></p>
-                <p id="modal-slug"></p>
-                <p><strong>Image:</strong></p>
-                <img id="modal-image" src="" alt="Service Image" style="width: 100px;">
-            </div>
-        </div>
-    </div>
-</div>
+
+<div class="overlay" id="overlay" ></div>
 
 <script>
-    function openDeleteModal() {
-        document.getElementById('deletePopup').style.display = 'block';
-    }
-    function closeDeleteModal() {
-        document.getElementById('deletePopup').style.display = 'none';
-    }
-    function deleteService() {
-        alert('Service deleted successfully!');
-        closeDeleteModal();
-    }
-    function viewService(name, description, slug, image) {
-        document.getElementById('modal-name').innerText = name;
-        document.getElementById('modal-description').innerText = description;
-        document.getElementById('modal-slug').innerText = slug;
-        document.getElementById('modal-image').src = image;
-        document.getElementById('serviceModal').style.display = 'block';
-    }
-    function closeModalService() {
-        document.getElementById('serviceModal').style.display = 'none';
-    }
+function fetchAbout(id) {
+    fetch(`/dashboard/about/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('about-title').textContent = data.title;
+            document.getElementById('about-description').textContent = data.description;
+            document.getElementById('viewModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        })
+        .catch(console.error);
+}
+
+function closeViewModal() {
+    document.getElementById('viewModal').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+}
+
+function openDeleteModal(id) {
+    document.getElementById('deleteForm').action = `/dashboard/about/${id}`;
+    document.getElementById('deleteModal').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+}
 </script>
 @endsection

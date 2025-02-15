@@ -31,7 +31,7 @@
 
 <div class="add-faq">
     <h3 class="p-2">FAQ Management</h3>
-    <a href="/dashboard/faq/create"><button>Add Button</button></a>
+    <a href="/dashboard/faq/create"><button>Add FAQ</button></a>
 </div>
 
 <div class="dashboard">

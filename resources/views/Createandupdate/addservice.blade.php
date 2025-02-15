@@ -4,13 +4,26 @@
 <div class="main-content">
     <div class="container mt-4">
         <div class="add-service-box">
-          
+            @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
             <div class="add-faq">
                 <h5>Create a New Service</h5>
                 <a href="/dashboard/service/create"><button>Add New Category</button></a>
             </div>
-            {{-- action="{{ route('service.store') }}" --}}
-            <form  method="POST" enctype="multipart/form-data" class="add-form">
+            <form  method="POST" action="{{ route('dashboard.service.store') }}" enctype="multipart/form-data" class="add-form">
                 @csrf <!-- CSRF Token for security -->
 
                 <!-- Service Name -->
@@ -50,23 +63,24 @@
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="status">Active / Inactive</label>
-                            <select class="form-control" id="status" name="status" required>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                            <select class="form-control" id="active" name="active" required>
+                                <option value="1" >Active</option>
+                                <option value="0">Inactive</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
                 <!-- Description -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="description">Description:</label>
-                            <textarea class="form-control" id="description" name="description" required>{{ old('description') }}</textarea>
-                        </div>
-                    </div>
-                </div>
+               <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" required></textarea>
+            </div>
+        </div>
+    </div>
+
 
                 <!-- Submit Button -->
                 <div class="row">
@@ -78,4 +92,13 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#description').summernote({
+            height: 300,
+            placeholder: 'Enter description here...',
+            tabsize: 2
+        });
+    });
+</script>
 @endsection
