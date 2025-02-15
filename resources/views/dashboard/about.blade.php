@@ -85,10 +85,10 @@
         <div class="viewpopup-content">
        
             <div class="popup-body">
-                <h1 class="">Service Detail</h1>
-                <img id="modal-service-image" src="" alt="Service Image" width="300">
+                <h4 class="my-3">About Detail</h4>
+                <img id="modal-about-image" src="" alt="Service Image" width="300">
                 <h4 class="my-3"><strong>Title:</strong> <span id="about-title"></span></h4>
-        <p><strong>Description:</strong> <span id="about-description"></span></p>
+                <p><strong>Description:</strong> <span id="about-description"></span></p>
             
          
             </div>
@@ -127,7 +127,8 @@ function fetchAbout(id) {
         .then(response => response.json())
         .then(data => {
             document.getElementById('about-title').textContent = data.title;
-            document.getElementById('about-description').textContent = data.description;
+            document.getElementById('about-description').innerHTML = data.description;
+            document.getElementById('modal-about-image').src = `{{ asset('storage/') }}/${data.image}`;
             document.getElementById('viewModal').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
         })

@@ -2,15 +2,6 @@
 
 @section('content')
 <div class="main-content">
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
     <div class="container mt-4">
         <div class="update-service-box">
             <h5>Update Service</h5>
@@ -49,9 +40,9 @@
                             <label for="image">Image:</label>
                          
                             <input type="file" class="form-control" id="image" name="image">
-                            @if ($service->image)
-                            <img src="{{ asset('storage/' . $service->image) }}" alt="Current Image" class="my-4" width="100" />
-                        @endif
+                               @if ($service->image)
+                                <img src="{{ asset('storage/' . $service->image) }}" alt="Current Image" width="100" />
+                            @endif
                         </div>
                     </div>
 
@@ -59,9 +50,9 @@
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="status">Active / Inactive</label>
-                            <select class="form-control" id="active" name="active" required>
-                                <option value="1" {{ $service->active == true ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ $service->active == false ? 'selected' : '' }}>Inactive</option>
+                            <select class="form-control" id="status" name="status" required>
+                                <option value="active" {{ $service->status == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ $service->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
                     </div>

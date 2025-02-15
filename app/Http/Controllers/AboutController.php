@@ -12,111 +12,99 @@ class AboutController
     public function __construct()
     {
         try {
-            $about = About::all();
-            View::share('about', $about); // Share About globally
+            $updateAbout = About::all();
+            View::share('updateAbout', $updateAbout); // Share UpdateAbout globally
         } catch (\Throwable $th) {
-            View::share('about', []);
+            View::share('updateAbout', []);
         }
     }
 
-    // Get all about data and redirect to the dashboard
-    public function getDashboardAbout()
+    public function getDashboardUpdateAbout()
     {
-        $about = About::all(); // Adjust query as needed
-        return redirect()->route('dashboard.about')->with('success', 'About data loaded successfully');
+        $updateAbout = About::all();
+        return redirect()->route('dashboard.updateabout')->with('success', 'UpdateAbout data loaded successfully');
     }
 
-    // Show form to create new about data
-    public function createAboutForm()
+    public function createUpdateAboutForm()
     {
-        return view('Createandupdate.addabout');
+        return view('Createandupdate.addupdateabout');
     }
 
-    // Create new about data and redirect to the dashboard
-    public function createAbout(Request $request)
+    public function createUpdateAbout(Request $request)
     {
         try {
-            // Validate the request
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'description' => 'required|string',
                 'active' => 'required|boolean',
             ]);
-    
-            // Handle Image Upload
+
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('about', 'public');
+                $imagePath = $request->file('image')->store('updateabout', 'public');
                 $validatedData['image'] = $imagePath;
             }
-    
-            // Create the about record
+
             About::create($validatedData);
-    
-            return redirect()->route('dashboard.about')->with('success', 'About data created successfully');
+
+            return redirect()->route('dashboard.about')->with('success', 'UpdateAbout data created successfully');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors());
         }
     }
 
-    // Show form to edit an existing about data
     public function edit($id)
     {
-        $about = About::findOrFail($id);
-        return view('Createandupdate.updateabout', compact('about'));
+        $updateAbout = About::findOrFail($id);
+        return view('Createandupdate.updateupdateabout', compact('updateAbout'));
     }
 
-    // Update an existing about data and redirect to the dashboard
     public function update(Request $request, $id)
     {
-        $about = About::findOrFail($id);
+        $updateAbout = About::findOrFail($id);
         $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'required|boolean',
         ]);
-    
+
         if ($request->hasFile('image')) {
-            // Handle image upload
-            $imageName = $request->image->store('about_images', 'public');
-            $about->image = $imageName;
+            $imageName = $request->image->store('updateabout_images', 'public');
+            $updateAbout->image = $imageName;
         }
-    
-        $about->title = $request->title;
-        $about->description = $request->description;
-        $about->active = $request->active;
-        $about->save();
-    
-        return redirect()->route('dashboard.about.index')->with('success', 'About section updated successfully!');
-    }
-    
-    // Delete about data
-    public function destroy($id)
-    {
-        $about = About::findOrFail($id);
-        $about->delete();
-    
-        // Absolute path redirection
-        return redirect('/dashboard/about')->with('success', 'About data deleted successfully.');
+
+        $updateAbout->title = $request->title;
+        $updateAbout->description = $request->description;
+        $updateAbout->active = $request->active;
+        $updateAbout->save();
+
+        return redirect()->route('dashboard.about')->with('success', 'UpdateAbout section updated successfully!');
     }
 
-    // Get about data by ID
-    public function getById($id)
+    public function destroy($id)
     {
-        $about = About::find($id);
-    
-        if (!$about) {
-            return response()->json(['error' => 'About data not found'], 404);
-        }
-    
-        return response()->json($about);
+        $updateAbout = About::findOrFail($id);
+        $updateAbout->delete();
+
+        return redirect('/dashboard/about')->with('success', 'UpdateAbout data deleted successfully.');
     }
 
     public function getByIds($id)
     {
-        $about = About::findOrFail($id);
-        return view('Createandupdate.updateabout', compact('about'));
+        $updateAbout = About::find($id);
+
+        if (!$updateAbout) {
+            return response()->json(['error' => 'UpdateAbout data not found'], 404);
+        }
+
+        return response()->json($updateAbout);
     }
-    
+    public function getById($id)
+    {
+        // Fetch the service by ID
+        $updateAbout = About::findOrFail($id);
+        // Return the view with the service data
+        return view('Createandupdate.updateabout', compact('updateAbout'));
+    }
 }
