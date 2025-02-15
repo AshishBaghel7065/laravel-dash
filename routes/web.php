@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Auth;
 
 // Public Pages Routes 
@@ -71,34 +72,29 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
 
+
+
         // All about routes
-        // Route::get('/about/create', fn() => view('Createandupdate.addabout'))->name('about.create.form');
-        // Route::get('/about/update/{id}', fn() => view('Createandupdate.updateabout'))->name('about.update.form');
-        // // Get about by ID
-        // Route::get('/about/{id}', [AboutController::class, 'getById'])->name('about.getById');
-        // // Create new about
-        // Route::post('/about', [AboutController::class, 'createAbout'])->name('about.store');
-        // // Get about by ID for update form
-        // Route::get('/about/update/{id}', [AboutController::class, 'getByIds'])->name('about.update');
-        // // Update about details
-        // Route::put('/about/update/{id}', [AboutController::class, 'update'])->name('about.update');
-
-        // // Delete about
-        // Route::delete('/about/{id}', [AboutController::class, 'destroy'])->name('about.destroy');
-
-        // All service routes
+        Route::get('/about/create',  fn() => view('Createandupdate.addabout'))->name('about.create.form');
+        // Route::get('/about/update/{id}', fn() => view('Createandupdate.updateabout'))->name('about.update');
+        Route::get('/about/{id}', [AboutController::class, 'getByIds'])->name('about.getByIds');
+        Route::post('/about', [AboutController::class, 'createUpdateAbout'])->name('about.store');
+        Route::get('/about/update/{id}', [AboutController::class, 'getById'])->name('about.getById');
+        Route::put('/about/update/{id}', [AboutController::class, 'update'])->name('about.update');
+        Route::delete('/about/{id}', [AboutController::class, 'destroy'])->name('about.destroy');
 
 
-// All about routes
-    Route::get('/about/create',  fn() => view('Createandupdate.addabout'))->name('about.create.form');
-    // Route::get('/about/update/{id}', fn() => view('Createandupdate.updateabout'))->name('about.update');
-    Route::get('/about/{id}', [AboutController::class, 'getByIds'])->name('about.getByIds');
-    Route::post('/about', [AboutController::class, 'createUpdateAbout'])->name('about.store');
-    Route::get('/about/update/{id}', [AboutController::class, 'getById'])->name('about.getById');
-    Route::put('/about/update/{id}', [AboutController::class, 'update'])->name('about.update');
-    Route::delete('/about/{id}', [AboutController::class, 'destroy'])->name('about.destroy');
 
-        
+
+        Route::get('/blog/create', fn() => view('Createandupdate.addblog'))->name('blog.create.form');
+        Route::post('/blog', [BlogController::class, 'createBlog'])->name('blog.store');
+        Route::get('/blog/{id}', [BlogController::class, 'getByIds'])->name('blog.getByIds');
+        Route::get('/blog/update/{id}', [BlogController::class, 'getById'])->name('blog.getById');
+        Route::put('/blog/update/{id}', [BlogController::class, 'updateBlog'])->name('blog.update');
+        Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+
+
+            
     });
 });
 

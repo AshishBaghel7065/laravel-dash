@@ -128,4 +128,6 @@ class ServiceController
         $service = Service::findOrFail($id);
         return view('Createandupdate.updateservice', compact('service'));
     }
+
+    
 }

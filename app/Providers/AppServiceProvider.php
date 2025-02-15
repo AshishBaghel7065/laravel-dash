@@ -7,6 +7,7 @@ use App\Http\View\Composers\FaqComposer;
 use App\Http\View\Composers\AchievementComposer;
 use App\Http\View\Composers\ServiceComposer;
 use App\Http\View\Composers\AboutComposer;
+use App\Http\View\Composers\BlogComposer;
 use Illuminate\Support\Facades\View;
 
 
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', AchievementComposer::class);
         View::composer('*', ServiceComposer::class);
         View::composer('*', AboutComposer::class); 
+        View::composer('*', BlogComposer::class);
 
 
     }
