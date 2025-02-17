@@ -3,7 +3,7 @@
 @section('content')
 <div class="add-faq">
     <h3 class="p-2">FAQ Management</h3>
-    <a href="/dashboard/faq/create"><button>Add FAQ</button></a>
+    <a href="/dashboard/blog/create"><button>Add Blog</button></a>
 </div>
     <div class="dashboard">
         <div class="container">
@@ -24,14 +24,14 @@
                         @foreach ($blogs as $index => $blog)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td><img src="{{ asset('images/' . $blog['image']) }}" alt="Blog Image" width="50"></td>
+                            <td><img src="{{ asset('storage/' . $blog['image']) }}" alt="Blog Image" width="50"></td>
                             <td>{{ $blog['title'] }}</td>
                             <td>{{ $blog['description'] }}</td>
                             <td>{{ $blog['publish'] }}</td>
                             <td>{{ $blog['category'] }}</td>
                             <td>
                            <div class="btn-container">
-                                    <button onclick="viewBlog('{{ $blog['title'] }}', '{{ $blog['description'] }}', '{{ $blog['publish'] }}', '{{ asset('images/' . $blog['image']) }}' , '{{ $blog['category']}}' ,'{{ $blog['meta_keywords']}}','{{ $blog['meta_description']}}','{{ $blog['slug']}}','{{ $blog['active'] == 1 ? 'Active' : 'Unactive' }}', {{ json_encode($blog['meta_tags']) }},)" class="view-btn"><i class="fa-regular fa-eye"></i></button>
+                                    <button onclick="viewBlog('{{ $blog['title'] }}', '{{ $blog['description'] }}', '{{ $blog['publish'] }}', '{{  $blog['image']}}' , '{{ $blog['category']}}' ,'{{ $blog['meta_keywords']}}','{{ $blog['meta_description']}}','{{ $blog['slug']}}','{{ $blog['active'] == 1 ? 'Active' : 'Unactive' }}', {{ json_encode($blog['meta_tags']) }},)" class="view-btn"><i class="fa-regular fa-eye"></i></button>
                                     <a href="{{ route('dashboard.blog.update', $blog['id']) }}" class="view-btn"><i class="fa-solid fa-pen"></i></a>
                                       
                                 <button class="delete-btn" onclick="openDeleteModal({{ $blog->id }})">
@@ -132,7 +132,7 @@
     // Open view modal with blog details
     function viewBlog(title, description, publish, image ,category,meta_keywords,meta_description,slug,active,meta_tags ) {
         document.getElementById('modal-service-name').textContent = title;
-        document.getElementById('modal-service-description').textContent = description;
+        document.getElementById('modal-service-description').innerHTML = description;
         document.getElementById('modal-service-category').textContent = category;
         document.getElementById('modal-service-pub').textContent = publish;
         document.getElementById('modal-service-meta-description').textContent = meta_description;
@@ -146,10 +146,14 @@
             document.getElementById('modal-service-active').classList.add("btn-danger");
             document.getElementById('modal-service-active').classList.remove("btn-success");
         }
+        const buttons = meta_tags.split(",").map((tag) => {
+            return `<button class="meta-tags">${tag.trim()}</button>`; // Make sure to trim any extra spaces
+        });
 
-        
+        document.getElementById('modal-service-tags').innerHTML = buttons.join(' ');
 
-        document.getElementById('modal-service-image').src = image;
+
+        document.getElementById('modal-service-image').src = '/storage/' + image;
 
         document.getElementById('serviceModal').style.display = 'block';
         document.getElementById('overlay').style.display = 'block';

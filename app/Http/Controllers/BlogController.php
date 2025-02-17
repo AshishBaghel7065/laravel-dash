@@ -47,8 +47,9 @@ class BlogController
                 'slug' => 'required|string|max:255|unique:blogs,slug',
                 'meta_keywords' => 'nullable|string',
                 'meta_description' => 'nullable|string',
-                'meta_tags' => 'nullable|array',
+                'meta_tags' => 'string',
             ]);
+            
     
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('blogs', 'public');
@@ -75,7 +76,7 @@ class BlogController
             'slug' => 'string|max:255|unique:blogs,slug,'.$id,
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string',
-            'meta_tags' => 'nullable|array',
+            'meta_tags' => 'string',
         ]);
     
         $blog = Blog::findOrFail($id);

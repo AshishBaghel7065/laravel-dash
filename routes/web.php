@@ -89,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/blog/create', fn() => view('Createandupdate.addblog'))->name('blog.create.form');
         Route::post('/blog', [BlogController::class, 'createBlog'])->name('blog.store');
         Route::get('/blog/{id}', [BlogController::class, 'getByIds'])->name('blog.getByIds');
-        Route::get('/blog/update/{id}', [BlogController::class, 'getById'])->name('blog.getById');
+        Route::get('/blog/update/{id}', [BlogController::class, 'getByIds'])->name('blog.getByIds');
         Route::put('/blog/update/{id}', [BlogController::class, 'updateBlog'])->name('blog.update');
         Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
 

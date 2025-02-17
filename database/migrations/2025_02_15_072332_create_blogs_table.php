@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('slug');
             $table->text('meta_keywords');
             $table->text('meta_description');
-            $table->json('meta_tags');
+            $table->string('meta_tags');
             $table->timestamps();
         });
     }

@@ -21,7 +21,7 @@
         @endif
             <div class="add-faq">
                 <h5>Create a New Service</h5>
-                <a href="/dashboard/service/create"><button>Add New Category</button></a>
+                <a href="/dashboard/service/create"><button>Add Service Category</button></a>
             </div>
             <form  method="POST" action="{{ route('dashboard.service.store') }}" enctype="multipart/form-data" class="add-form">
                 @csrf <!-- CSRF Token for security -->

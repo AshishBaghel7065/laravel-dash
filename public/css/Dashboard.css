@@ -736,3 +736,11 @@ position: relative;
     top: 30px;
     left: 30px;
 }
+.meta-tags{
+    background-color: rgb(238, 238, 238);
+    padding: 5px 8px ;
+    border: none;
+    margin: 4px;
+    border-radius: 3px;
+    font-size: 11px;
+}
