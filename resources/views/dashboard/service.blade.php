@@ -1,34 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<style>
-    .modal, .overlay {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        background: transparent;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-    }
-    .overlay {
-        width: 100%;
-        height: 100%;
-        background: rgba(24, 24, 24, 0.5);
-        z-index: 999;
-    }
-   
-    .delete-modal {
-        background: white;
-        padding: 20px;
-        border-radius: 5px;
-        text-align: center;
-    }
-   
-</style>
-
 <div class="add-faq">
     <h3 class="p-2">Service Management</h3>
     <a href="/dashboard/service/create"><button>Add Service</button></a>

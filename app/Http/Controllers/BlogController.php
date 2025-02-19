@@ -76,7 +76,7 @@ class BlogController
             'slug' => 'string|max:255|unique:blogs,slug,'.$id,
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string',
-            'meta_tags' => 'string',
+            'meta_tags' => 'nullable|string',
         ]);
     
         $blog = Blog::findOrFail($id);

@@ -7,6 +7,7 @@ use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 
 // Public Pages Routes 
@@ -93,8 +94,15 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/blog/update/{id}', [BlogController::class, 'updateBlog'])->name('blog.update');
         Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
 
+   
 
-            
+        Route::get('/review/create', fn() => view('Createandupdate.addreview'))->name('review.create.form');
+        Route::post('/review/create', [ReviewController::class, 'createReview'])->name('review.store');
+        Route::get('/review/{id}', [ReviewController::class, 'getByIds'])->name('blog.getByIds');
+        Route::get('/review/update/{id}', [ReviewController::class, 'getByIds'])->name('review.getByIds');
+        Route::put('/review/update/{id}', [ReviewController::class, 'updateReview'])->name('review.update');
+        Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
+
     });
 });
 

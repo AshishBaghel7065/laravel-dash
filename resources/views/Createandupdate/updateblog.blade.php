@@ -63,10 +63,9 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="publish">Publish At:</label>
-                            <input type="date" class="form-control" id="publish" name="publish" value="{{ $blog->publish }}" required>
+                            <input type="date" class="form-control" id="publish" name="publish" value="{{ old('publish', $blog->publish) }}" required>
                         </div>
                     </div>
-
                     <!-- Active/InActive Status -->
                     <div class="col-lg-4">
                         <div class="form-group">
