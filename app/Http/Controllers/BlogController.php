@@ -39,7 +39,7 @@ class BlogController
             // Validate the request
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'required|image|mimes:webp,jpeg,png,jpg,gif|max:2048',
                 'category' => 'required|string|max:255',
                 'description' => 'required|string',
                 'publish' => 'required|date',
@@ -69,7 +69,7 @@ class BlogController
         $validated = $request->validate([
             'title' => 'string|max:255',
             'category' => 'string|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:webp,jpeg,png,jpg,gif|max:2048',
             'active' => 'boolean',
             'description' => 'string',
             'publish' => 'date',

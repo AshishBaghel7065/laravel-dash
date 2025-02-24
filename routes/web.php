@@ -8,6 +8,8 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ContactController;
+
 use Illuminate\Support\Facades\Auth;
 
 // Public Pages Routes 
@@ -98,10 +100,19 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/review/create', fn() => view('Createandupdate.addreview'))->name('review.create.form');
         Route::post('/review/create', [ReviewController::class, 'createReview'])->name('review.store');
-        Route::get('/review/{id}', [ReviewController::class, 'getByIds'])->name('blog.getByIds');
+        Route::get('/review/{id}', [ReviewController::class, 'getById'])->name('blog.getById');
         Route::get('/review/update/{id}', [ReviewController::class, 'getByIds'])->name('review.getByIds');
         Route::put('/review/update/{id}', [ReviewController::class, 'updateReview'])->name('review.update');
         Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
+
+
+        
+
+        Route::get('/contact', [ContactController::class, 'getDashboardContacts'])->name('contact.get');
+        Route::get('/appointment', [ContactController::class, 'getDashboardContacts2'])->name('contact.get');
+
+        Route::delete('/contact/delete/{id}', [ContactController::class, 'deleteContact'])->name('contact.delete');
+        Route::get('/contact/{id}', [ContactController::class, 'getById'])->name('contact.get');
 
     });
 });
@@ -109,10 +120,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-
-
-
-
+Route::post('/contact/create', [ContactController::class, 'createContact'])->name('contact.create');
 
 
 

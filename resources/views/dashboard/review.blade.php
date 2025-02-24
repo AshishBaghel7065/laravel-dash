@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <div class="btn-container">
-                                <button onclick="viewService(this)" class="view-btn" data-review-id="123">
+                                <button onclick="fetchReview({{$review->id}})" class="view-btn" data-review-id="123">
                                     <i class="fa-regular fa-eye"></i>
                                 </button>
                                 
@@ -85,47 +85,53 @@
         <div class="close-btn" onclick="closeServiceModal()">
             <i class="fa-solid fa-circle-xmark text-white"></i>
         </div>
-        <div class="viewpopup-content">
+        <div class="viewpopup-content text-center">
             <div class="popup-body">
-                <h1 class="mx-3">Review Detail</h1>
-                <img id="modal-service-image" src="" alt="Service Image" width="500">
-                <h3><strong>Username:</strong></h3>
-                <p id="modal-service-username"></p>
-                <h3><strong>Review:</strong></h3>
-                <p id="modal-service-review"></p>
-                <h3><strong>Posted Date:</strong></h3>
-                <p id="modal-service-posted-date"></p>
-                <h3><strong>Stars:</strong></h3>
-                <p id="modal-service-stars"></p>
+                <h3 class="mx-3">Review Detail</h3>
+                <img id="modal-service-image" src="" alt="Service Image" width="100" height="100" style="border-radius: 50%;margin:auto;"  class="my-3">
+                <h6><strong>Username:</strong> <span id="modal-service-username"></span></h6>
+               
+                <h6 class="my-3"><strong>Review:</strong> <span id="modal-service-review"></span></h6>
+               
+                <h6><strong>Posted Date:</strong> <span id="modal-service-posted-date"></span></h6>
+               
+                <h6><strong>Stars:</strong> <span id="modal-service-stars"></span></h6>
+               
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function viewService(button) {
-    const reviewId = button.getAttribute('data-review-id');
-    fetchReview(reviewId);  // Passes the ID to fetchReview
-}
+   function fetchReview(id) {
+    console.log('Fetching review for ID:', id); // Debugging
 
-    function fetchReview(id) {
-    fetch(`/dashboard/review/${id}`)  // Uses the ID in the URL to fetch the review
+    fetch(`/dashboard/review/${id}`)
         .then(response => response.json())
         .then(data => {
-            // Populate modal with the fetched review data
-            document.getElementById('modal-service-username').textContent = data.username;
-            document.getElementById('modal-service-review').textContent = data.review;
-            document.getElementById('modal-service-posted-date').textContent = data.posted_date;
-            document.getElementById('modal-service-stars').innerHTML = generateStarRating(data.stars);
-            document.getElementById('modal-service-image').src = '/storage/' + data.user_image;
+            console.log('Fetched data:', data); // Debugging
 
+            // Ensure data exists
+            if (!data) {
+                console.error('No data received');
+                return;
+            }
+
+            // Populate modal fields
+            document.getElementById('modal-service-username').textContent = data.username || 'N/A';
+            document.getElementById('modal-service-review').textContent = data.review || 'No review provided';
+            document.getElementById('modal-service-posted-date').textContent = data.posted_date || 'N/A';
+            document.getElementById('modal-service-stars').innerHTML = generateStarRating(data.stars || 0);
+            document.getElementById('modal-service-image').src = data.user_image ? `/storage/${data.user_image}` : 'default-image.jpg';
+
+            // Show modal
             document.getElementById('serviceModal').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
         })
         .catch(error => console.error('Error fetching review:', error));
 }
 
-
+ 
     // Generate star rating HTML
     function generateStarRating(stars) {
         let starHtml = '';

@@ -74,8 +74,8 @@
             </div>
             <h5>Achievement Detail</h5>
             <div class="popup-body">
-                <p><strong>Title:</strong> <span id="modal-title"></span></p>
-                <p><strong>Count:</strong> <span id="modal-count"></span></p>
+                <p class="fs-3"><strong>Title:</strong> <span id="modal-title"></span></p>
+                <p class="fs-1"><strong>Count:</strong> <span id="modal-count"></span></p>
             </div>
         </div>
     </div>

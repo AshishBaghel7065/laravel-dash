@@ -39,7 +39,7 @@ class ServiceController
             // Validate the request
             $validatedData = $request->validate([
                 'service' => 'required|string|max:255',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
+                'image' => 'required|image|mimes:webp,jpeg,png,jpg,gif|max:2048', // Image validation
                 'category' => 'required|string|max:255',
                 'description' => 'required|string',
                 'active' => 'required|boolean',
@@ -66,7 +66,7 @@ class ServiceController
         $validated = $request->validate([
             'service' => 'string|max:255',
             'category' => 'string|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
+            'image' => 'image|mimes:webp,jpeg,png,jpg,gif|max:2048', // Image validation
             'active' => 'boolean',
             'description' => 'string',
         ]);

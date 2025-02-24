@@ -1,6 +1,13 @@
 @extends('layouts.dashboard')
 
 @section('content')
+<style>
+    .faded {
+    opacity: 0.4; /* Make row almost transparent */
+    transition: opacity 0.3s ease-in-out;
+}
+
+</style>
 
 <h3 class="p-2">Appointments</h3>
 <div class="dashboard">
@@ -12,32 +19,30 @@
                         <th style="width:5%">#</th>
                         <th style="width:25%">Name</th>
                         <th style="width:20%">Phone</th>
-                        <th style="width:25%">Email</th>
+                        <th style="width:20%">Email</th>
                         <th style="width:15%">Appointment Date</th>
+                        <th style="width:25%">Appointment Date</th>
                         <th style="width:10%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $appointments = [
-                            ['name' => 'John Doe', 'phone' => '+1 123 456 7890', 'email' => 'john@example.com', 'date' => '2024-08-30'],
-                            ['name' => 'Jane Smith', 'phone' => '+1 987 654 3210', 'email' => 'jane@example.com', 'date' => '2024-09-02'],
-                            ['name' => 'Mike Johnson', 'phone' => '+1 555 666 7777', 'email' => 'mike@example.com', 'date' => '2024-09-10']
-                        ];
-                    @endphp
-                    @foreach ($appointments as $index => $appointment)
+                    @foreach ($contacts as $index => $contact)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $appointment['name'] }}</td>
-                        <td>{{ $appointment['phone'] }}</td>
-                        <td>{{ $appointment['email'] }}</td>
-                        <td>{{ $appointment['date'] }}</td>
+                        <td>{{ $contact['name'] }}</td>
+                        <td>{{ $contact['phone'] }}</td>
+                        <td>{{ $contact['email'] }}</td>
+                        <td>{{ $contact['date_of_appointment'] }}</td>
+                        <td class="msg">{{ $contact['message'] }}</td>
                         <td>
-                            <div class="btn-container">
-                                <button onclick="viewService('Web Development', 'Providing high-quality web development services.', 'web-development', 'https://via.placeholder.com/50')" class="view-btn"><i class="fa-regular fa-eye"></i></button>
-                                <a href="#" class="view-btn"><i class="fa-solid fa-pen"></i></a>
-                                <a href="#" class="delete-btn" onclick="openDeleteModal()"><i class="fa-solid fa-trash"></i></a>
-                            </div>
+                           <div class="btn-container">
+                            <button onclick="viewContact('{{ $contact['name'] }}', '{{ $contact['phone'] }}', '{{ $contact['email'] }}', '{{ $contact['date_of_appointment'] }}', '{{ $contact['message'] }}')" class="view-btn">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                            
+                            <input type="checkbox" class="toggle-fade" data-row="{{ $index }}">
+
+                           </div>
                         </td>
                     </tr>
                     @endforeach
@@ -100,15 +105,35 @@
         alert('Service deleted successfully!');
         closeDeleteModal();
     }
-    function viewService(name, description, slug, image) {
-        document.getElementById('modal-name').innerText = name;
-        document.getElementById('modal-description').innerText = description;
-        document.getElementById('modal-slug').innerText = slug;
-        document.getElementById('modal-image').src = image;
-        document.getElementById('serviceModal').style.display = 'block';
-    }
-    function closeModalService() {
-        document.getElementById('serviceModal').style.display = 'none';
-    }
+    function viewContact(name, phone, email, date_of_appointment, message) {
+    document.getElementById('modal-name').innerText = name;
+    document.getElementById('modal-description').innerText = message;
+    document.getElementById('modal-slug').innerText = email;
+    document.getElementById('modal-image').style.display = 'none'; // Hide image since it's not needed
+    document.getElementById('serviceModal').style.display = 'block';
+}
+
+function closeModalService() {
+    document.getElementById('serviceModal').style.display = 'none';
+}
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll(".toggle-fade");
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+            const rowIndex = this.getAttribute("data-row");
+            const row = document.querySelectorAll("tbody tr")[rowIndex];
+
+            if (this.checked) {
+                row.classList.add("faded");
+            } else {
+                row.classList.remove("faded");
+            }
+        });
+    });
+});
+
 </script>
 @endsection

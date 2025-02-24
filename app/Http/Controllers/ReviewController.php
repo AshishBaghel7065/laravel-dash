@@ -30,7 +30,7 @@ class ReviewController
                 'posted_date' => 'required|date',
                 'review' => 'required|string',
                 'stars' => 'required|integer|min:1|max:5', // Rating between 1 and 5
-                'user_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Image validation
+                'user_image' => 'nullable|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048', // Image validation
             ]);
 
             // Handle the file upload
@@ -56,7 +56,7 @@ class ReviewController
             'posted_date' => 'required|date',
             'stars' => 'required|integer|between:1,5',
             'review' => 'required|string|max:500',
-            'user_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'user_image' => 'nullable|image|mimes:webp,jpeg,png,jpg,gif|max:2048',
         ]);
     
         $review = Review::find($id);
@@ -86,10 +86,21 @@ class ReviewController
         return view('Createandupdate.updatereview', compact('review'));
     }
 
+    public function getById($id)
+    {
+        $review = Review::find($id);
+    
+        if (!$review) {
+            return response()->json(['error' => 'Service not found'], 404);
+        }
+    
+        return response()->json($review);
+    }
+
     public function destroy($id)
     {
-        $service = Review::findOrFail($id);
-        $service->delete();
+        $review = Review::findOrFail($id);
+        $review->delete();
     
         // Absolute path redirection
         return redirect('/dashboard/review')->with('success', 'Service deleted successfully.');

@@ -35,7 +35,7 @@ class AboutController
         try {
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'required|image|mimes:webp,jpeg,png,jpg,gif|max:2048',
                 'description' => 'required|string',
                 'active' => 'required|boolean',
             ]);
@@ -65,7 +65,7 @@ class AboutController
         $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
             'active' => 'required|boolean',
         ]);
 
