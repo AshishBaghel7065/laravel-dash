@@ -14,8 +14,9 @@
                                 <p> <i class="fa-regular fa-id-badge"></i></p>
                             </div>
                             <div class="show-body">
+                               
                                 <h1>
-                                    23
+                                    {{ count($contacts) }}
                                 </h1>
                                 <p>Total Contact</p>
                             </div>
@@ -29,7 +30,7 @@
                             </div>
                             <div class="show-body">
                                 <h1>
-                                    23
+                                    {{ count($blogs) }}
                                 </h1>
                                 <p>Total Blog</p>
                             </div>
@@ -43,7 +44,7 @@
                             </div>
                             <div class="show-body">
                                 <h1>
-                                    23
+                                    {{ count($faqs) }}
                                 </h1>
                                 <p>Total FAQ</p>
                             </div>
@@ -57,7 +58,7 @@
                             </div>
                             <div class="show-body">
                                 <h1>
-                                    23
+                                    {{ count($about) }}
                                 </h1>
                                 <p>Total About</p>
                             </div>
@@ -74,7 +75,7 @@
                             </div>
                             <div class="show-body">
                                 <h1>
-                                    23
+                                    {{ count($reviews) }}
                                 </h1>
                                 <p>Total Review</p>
                             </div>
@@ -88,7 +89,7 @@
                             </div>
                             <div class="show-body">
                                 <h1>
-                                    23
+                                    {{ count($achievements) }}
                                 </h1>
                                 <p>Total Achievement</p>
                             </div>
@@ -102,7 +103,7 @@
                             </div>
                             <div class="show-body">
                                 <h1>
-                                    23
+                                    {{ count($contacts) }}
                                 </h1>
                                 <p>Total Appointment</p>
                             </div>

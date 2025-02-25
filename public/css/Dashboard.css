@@ -744,3 +744,20 @@ position: relative;
     border-radius: 3px;
     font-size: 11px;
 }
+.seo-box input,
+.seo-box textarea {
+    width: 100%;
+    padding: 30px 10px;
+    background-color: rgb(243, 243, 243);
+    margin-bottom: 10px;
+    border: 1px solid  white !important;
+    border-radius: 5px;
+}
+
+
+.seo-drop select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid  black;
+    border-radius: 5px;
+}

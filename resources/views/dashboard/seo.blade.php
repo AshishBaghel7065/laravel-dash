@@ -1,61 +1,40 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<style>
-.container-dashboard {
-    padding: 20px;
-    background: #f8f9fa;
-}
-.add-container h4 {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-.seo-drop select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid  black;
-    border-radius: 5px;
-}
-.seo-box input,
-.seo-box textarea {
-    width: 100%;
-    padding: 30px 10px;
-    background-color: rgb(243, 243, 243);
-    margin-bottom: 10px;
-    border: 1px solid  white !important;
-    border-radius: 5px;
-}
+<h3 class="text-3xl mt-3 font-semibold mb-6">Update Metadata</h3>
 
-.table-box2 {
-    margin-top: 20px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-</style>
 <div class="dashboard">
+    
     <div class="container">
+        
        <div class="row">
-        <div class="col-lg-4">
-
+        <div class="col-lg-4 py-3">
+            <h6>Drop Down For Soe Page</h6>
+            <select id="seoPageSelect" class="w-100 my-2 border px-2">
+                <option value="" selected disabled>Select Page</option>
+                {{-- @foreach ($seoPages as $page)
+                    <option value="{{ $page->page }}">{{ ucfirst($page->page) }}</option>
+                @endforeach --}}
+            </select>
         </div>
         <div class="col-lg-8">
             <div class="seo-box">
-                <h4 class="primary-color mx-3" id="seoTitleDisplay">Title</h4>
-
+                <h4 class="primary-color my-2" id="seoTitleDisplay">Page Title</h4>
+                <label>Website Title</label>
                 <input type="text" id="seoFullTitle" placeholder="Update website's Title">
+                <label>Meta Description</label>
                 <textarea id="seoDescription" placeholder="Update Description"></textarea>
+                <label>Meta Keywords</label>
                 <input type="text" id="seoKeywords" placeholder="Update website's Keywords">
+                <label>Website Author</label>
                 <input type="text" id="seoAuthor" placeholder="Update website's Author">
-
                 <button class="submit-btn" id="updateSeoBtn">Update Now</button>
             </div>
         </div>
        </div>
     </div>
 </div>
-<h3 class="text-3xl mt-3 font-semibold mb-6">SEO Metadata</h3>
+<h3 class="text-3xl mt-3 font-semibold mb-6">Metadata</h3>
 
 <div class="dashboard">
     <div class="container">
@@ -73,35 +52,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    $seo_metadata = [
-                        [
-                            "id" => 1,
-                            "page" => "home",
-                            "title" => "Best SEO Services | Grow Your Business Online",
-                            "meta_description" => "Boost your website traffic and rank higher with our expert SEO services. Increase visibility and get more leads today!",
-                            "meta_keywords" => "SEO services, digital marketing, website ranking, search engine optimization",
-                            "author" => "John Doe"
-                        ],
-                        [
-                            "id" => 2,
-                            "page" => "about",
-                            "title" => "About Us | Expert SEO & Digital Marketing Team",
-                            "meta_description" => "Learn about our SEO and digital marketing experts who help businesses achieve online success with proven strategies.",
-                            "meta_keywords" => "SEO experts, digital marketing team, SEO agency, online marketing",
-                            "author" => "Jane Smith"
-                        ],
-                        [
-                            "id" => 3,
-                            "page" => "services",
-                            "title" => "SEO Services | On-Page & Off-Page Optimization",
-                            "meta_description" => "We offer complete SEO services including on-page optimization, link building, keyword research, and content marketing.",
-                            "meta_keywords" => "on-page SEO, off-page SEO, link building, keyword research, content marketing",
-                            "author" => "David Brown"
-                        ]
-                    ];
-                    ?>
-                    @foreach ($seo_metadata as $index => $seo)
+                    {{-- @foreach ($soes as $soe)
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $seo['page'] }}</td>
@@ -115,7 +66,7 @@
                             </button>
                         </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -151,10 +102,66 @@ function viewContact(page,title,meta_description,meta_keywords,author) {
     document.getElementById('modal-author').textContent = author;
     document.getElementById('contactModal').style.display = 'block';
 }
-
 function closeModal() {
     document.getElementById('contactModal').style.display = 'none';
 }
 </script>
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    const selectPage = document.getElementById("seoPageSelect");
+    const seoTitleDisplay = document.getElementById("seoTitleDisplay");
+    const seoFullTitle = document.getElementById("seoFullTitle");
+    const seoDescription = document.getElementById("seoDescription");
+    const seoKeywords = document.getElementById("seoKeywords");
+    const seoAuthor = document.getElementById("seoAuthor");
+    const updateButton = document.getElementById("updateSeoBtn");
+
+    selectPage.addEventListener("change", function () {
+        const selectedPage = this.value;
+        
+        fetch(`/soe/${selectedPage}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    seoTitleDisplay.textContent = data.title || "No Title Found";
+                    seoFullTitle.value = data.title || "";
+                    seoDescription.value = data.meta_description || "";
+                    seoKeywords.value = data.meta_keywords || "";
+                    seoAuthor.value = data.author || "";
+                }
+            })
+            .catch(error => console.error("Error fetching SEO data:", error));
+    });
+
+    updateButton.addEventListener("click", function () {
+        const selectedPage = selectPage.value;
+        if (!selectedPage) {
+            alert("Please select a page first!");
+            return;
+        }
+
+        const updatedData = {
+            title: seoFullTitle.value,
+            meta_description: seoDescription.value,
+            meta_keywords: seoKeywords.value,
+            author: seoAuthor.value
+        };
+
+        fetch(`/soe/update/${selectedPage}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(updatedData)
+        })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error("Error updating SEO data:", error));
+    });
+});
+
+    </script>
+    
 
 @endsection

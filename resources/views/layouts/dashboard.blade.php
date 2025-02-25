@@ -134,7 +134,7 @@
                         <a href="#"><i class="fa-solid fa-user-tie"></i> View Profile</a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <b❤️utton type="submit" class="logout ubuntu-light"><i class="fa-solid fa-arrow-trend-up"> </i> Logout</b❤️utton>
+                            <button type="submit" class="logout ubuntu-light"><i class="fa-solid fa-arrow-trend-up"> </i> Logout</button>
                         </form>
                      
                     </div>

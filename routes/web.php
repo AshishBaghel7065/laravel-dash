@@ -110,7 +110,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/contact', [ContactController::class, 'getDashboardContacts'])->name('contact.get');
         Route::get('/appointment', [ContactController::class, 'getDashboardContacts2'])->name('contact.get');
-
+        Route::get('/', [ContactController::class, 'getDashboardContacts3'])->name('contact.get');
         Route::delete('/contact/delete/{id}', [ContactController::class, 'deleteContact'])->name('contact.delete');
         Route::get('/contact/{id}', [ContactController::class, 'getById'])->name('contact.get');
 

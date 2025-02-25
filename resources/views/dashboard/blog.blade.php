@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="add-faq">
-    <h3 class="p-2">FAQ Management</h3>
+    <h3 class="p-2">Blog Management</h3>
     <a href="/dashboard/blog/create"><button>Add Blog</button></a>
 </div>
     <div class="dashboard">

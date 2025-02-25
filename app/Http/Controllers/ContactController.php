@@ -21,6 +21,11 @@ class ContactController
         return view('dashboard.appointment', compact('contacts'));
     }
     
+    public function getDashboardContacts3()
+    {
+        $contacts = Contact::all(); // Fetch all contacts from the database
+        return view('dashboard.index', compact('contacts'));
+    }
     
 
     // Create Contact and redirect to the dashboard
