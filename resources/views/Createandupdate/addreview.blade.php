@@ -22,7 +22,6 @@
 
             <div class="add-faq">
                 <h5>Create a New Review</h5>
-                <a href="/dashboard/review/create"><button>Add Review</button></a>
             </div>
             
             <form method="POST" action="{{ route('dashboard.review.store') }}" enctype="multipart/form-data" class="add-form">

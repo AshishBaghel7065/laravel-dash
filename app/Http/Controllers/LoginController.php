@@ -58,4 +58,5 @@ class LoginController
 
         return redirect('/login')->with('success', 'You have been logged out.');
     }
+
 }

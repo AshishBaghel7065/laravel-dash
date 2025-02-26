@@ -25,6 +25,20 @@
                     <div class="col-lg-3">
                         <div class="show-card">
                             <div class="show-head">
+                                <p>Services</p>
+                                <p><i class="fa-solid fa-screwdriver-wrench"></i></p>
+                            </div>
+                            <div class="show-body">
+                                <h1>
+                                    {{ count($services) }}
+                                </h1>
+                                <p>Total Serivces</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="show-card">
+                            <div class="show-head">
                                 <p>Blog</p>
                                 <p><i class="fa-solid fa-comments"></i></p>
                             </div>
@@ -50,6 +64,10 @@
                             </div>
                         </div>
                     </div>
+                
+
+                </div>
+                <div class="row my-2">
                     <div class="col-lg-3">
                         <div class="show-card">
                             <div class="show-head">
@@ -64,9 +82,6 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="row my-2">
                     <div class="col-lg-3">
                         <div class="show-card">
                             <div class="show-head">
@@ -117,7 +132,7 @@
                             </div>
                             <div class="show-body">
                                 <h1>
-                                    23
+                                    {{ count($seoPages) }}
                                 </h1>
                                 <p>Total SEO Pages</p>
                             </div>

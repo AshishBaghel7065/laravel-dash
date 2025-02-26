@@ -51,10 +51,10 @@
                         <div class="form-group">
                             <label for="status">Active / Inactive</label>
                             <select class="form-control" id="status" name="status" required>
-                                <option value="active" {{ $service->status == 'active' ? 'selected' : '' }}>Active</option>
-                                <option value="inactive" {{ $service->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                <option value="1" >Active</option>
+                                <option value="0">Inactive</option>
                             </select>
-                        </div>
+                        </div>  
                     </div>
                 </div>
 
@@ -93,7 +93,13 @@
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['insert', ['link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
-            ]
+            ],
+            callbacks: {
+                onInit: function() {
+                    // Change background color after initialization
+                    $('.note-editable').css('background-color', 'white');
+                }
+            }
         });
     });
 </script>

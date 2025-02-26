@@ -19,10 +19,15 @@
                 </ul>
             </div>
         @endif
+
+        
             <div class="add-faq">
                 <h5>Create a New Service</h5>
-                <a href="/dashboard/service/create"><button>Add Service Category</button></a>
+                <a href="/dashboard/service/category/create"><button>Add Service Category</button></a>
             </div>
+            <ul>
+               
+            </ul>
             <form  method="POST" action="{{ route('dashboard.service.store') }}" enctype="multipart/form-data" class="add-form">
                 @csrf <!-- CSRF Token for security -->
 
@@ -42,12 +47,12 @@
                         <div class="form-group">
                             <label for="category">Category:</label>
                             <select class="form-control" id="category" name="category" required>
-                                <option value="Value1">Value 1</option>
-                                <option value="Value2">Value 2</option>
-                                <option value="Value3">Value 3</option>
-                                <option value="Value4">Value 4</option>
-                                <option value="Value5">Value 5</option>
-                            </select>
+                                @foreach ($categories as $category)
+                                <option value="{{ strtolower($category->title) }}">{{ ucwords($category->title) }}</option>
+                            @endforeach
+                            
+                    </select>
+                         
                         </div>
                     </div>
 
@@ -97,7 +102,13 @@
         $('#description').summernote({
             height: 300,
             placeholder: 'Enter description here...',
-            tabsize: 2
+            tabsize: 2,
+            callbacks: {
+                onInit: function() {
+                    // Change background color after initialization
+                    $('.note-editable').css('background-color', 'white');
+                }
+            }
         });
     });
 </script>

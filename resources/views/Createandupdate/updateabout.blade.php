@@ -17,10 +17,6 @@
                             <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $updateAbout->title) }}" required>
                         </div>
                     </div>
-                </div>
-
-                <!-- Image -->
-                <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="image">Image:</label>
@@ -41,6 +37,7 @@
                     </div>
                 </div>
 
+            
                 <!-- Description with Summernote -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -81,7 +78,13 @@
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['insert', ['link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
-            ]
+            ],
+            callbacks: {
+                onInit: function() {
+                    // Change background color after initialization
+                    $('.note-editable').css('background-color', 'white');
+                }
+            }
         });
     });
 </script>

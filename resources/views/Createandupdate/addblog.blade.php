@@ -148,7 +148,13 @@
         $('#description').summernote({
             height: 300,
             placeholder: 'Enter blog description here...',
-            tabsize: 2
+            tabsize: 2,
+            callbacks: {
+                onInit: function() {
+                    // Change background color after initialization
+                    $('.note-editable').css('background-color', 'white');
+                }
+            }
         });
     });
 

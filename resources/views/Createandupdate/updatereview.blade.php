@@ -22,7 +22,7 @@
 
             <div class="add-faq">
                 <h5>Update Review</h5>
-                <a href="/dashboard/reviews"><button>Back to Reviews</button></a>
+             
             </div>
             
             <form method="POST" action="{{ route('dashboard.review.update', $review->id) }}" enctype="multipart/form-data" class="add-form">

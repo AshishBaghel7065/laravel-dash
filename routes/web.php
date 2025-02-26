@@ -9,7 +9,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\SeoPageController;
+use App\Http\Controllers\ServiceCategoryController;
 use Illuminate\Support\Facades\Auth;
 
 // Public Pages Routes 
@@ -66,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
         // All service routes
         Route::get('/service/create',  fn() => view('Createandupdate.addservice'))->name('service.create.form');
         Route::get('/service/update/{id}', fn() => view('Createandupdate.updateservice'))->name('service.update');
+        Route::get('/service/category/create', fn() => view('Createandupdate.addservicecategory'))->name('service.addservicecategory');
         // Get service by ID
 
         Route::get('/service/{id}', [ServiceController::class, 'getById'])->name('service.getById');
@@ -74,7 +76,22 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/service/update/{id}', [ServiceController::class, 'updateService'])->name('service.update');
         Route::delete('/service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
+        
+        // Display all service categories in the dashboard
+        Route::get('/service/create', [ServiceCategoryController::class, 'getAll'])->name('Createandupdate.addservice');
+        Route::get('/service/category/create', [ServiceCategoryController::class, 'getAll2'])->name('Createandupdate.addservicecategory');
 
+        
+        // Create a new service category
+
+
+        Route::post('/service/category/create', [ServiceCategoryController::class, 'create'])
+             ->name('service.category.create');
+        
+
+        Route::delete('/service/category/{id}', [ServiceCategoryController::class, 'delete'])
+                 ->name('service.category.delete');
+             
 
 
         // All about routes
@@ -114,6 +131,19 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/contact/delete/{id}', [ContactController::class, 'deleteContact'])->name('contact.delete');
         Route::get('/contact/{id}', [ContactController::class, 'getById'])->name('contact.get');
 
+
+        Route::get('/seopages', [SeoPageController::class, 'dashboard'])->name('dashboard.seopages');
+        Route::post('/seopages/store', [SeoPageController::class, 'store'])->name('seopages.store');
+        Route::get('/seopages/{id}', [SeoPageController::class, 'show'])->name('seopages.show'); // JSON Response
+        Route::get('/seopages/update/{id}', [SeoPageController::class, 'getByIds'])->name('seopages.getByIds');
+        Route::put('/seopages/update/{id}', [SeoPageController::class, 'update'])->name('seopages.update');
+        Route::delete('/seopages/delete/{id}', [SeoPageController::class, 'destroy'])->name('seopages.delete');
+       
+
+        
+        
+
+
     });
 });
 
@@ -123,7 +153,7 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/contact/create', [ContactController::class, 'createContact'])->name('contact.create');
 
 
-
+    
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');

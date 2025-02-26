@@ -1,41 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<h3 class="text-3xl mt-3 font-semibold mb-6">Update Metadata</h3>
-
-<div class="dashboard">
-    
-    <div class="container">
-        
-       <div class="row">
-        <div class="col-lg-4 py-3">
-            <h6>Drop Down For Soe Page</h6>
-            <select id="seoPageSelect" class="w-100 my-2 border px-2">
-                <option value="" selected disabled>Select Page</option>
-                {{-- @foreach ($seoPages as $page)
-                    <option value="{{ $page->page }}">{{ ucfirst($page->page) }}</option>
-                @endforeach --}}
-            </select>
-        </div>
-        <div class="col-lg-8">
-            <div class="seo-box">
-                <h4 class="primary-color my-2" id="seoTitleDisplay">Page Title</h4>
-                <label>Website Title</label>
-                <input type="text" id="seoFullTitle" placeholder="Update website's Title">
-                <label>Meta Description</label>
-                <textarea id="seoDescription" placeholder="Update Description"></textarea>
-                <label>Meta Keywords</label>
-                <input type="text" id="seoKeywords" placeholder="Update website's Keywords">
-                <label>Website Author</label>
-                <input type="text" id="seoAuthor" placeholder="Update website's Author">
-                <button class="submit-btn" id="updateSeoBtn">Update Now</button>
-            </div>
-        </div>
-       </div>
-    </div>
-</div>
 <h3 class="text-3xl mt-3 font-semibold mb-6">Metadata</h3>
-
 <div class="dashboard">
     <div class="container">
         <div class="table-box">
@@ -48,120 +14,77 @@
                         <th style="width:25%">Meta Description</th>
                         <th style="width:25%">Meta Keywords</th>
                         <th style="width:15%">Author</th>
-                        <th style="width:15%">Action</th>
+                        <th style="width:10%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($soes as $soe)
+                    @foreach ($seoPages as $index => $seoPage)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $seo['page'] }}</td>
-                        <td>{{ $seo['title'] }}</td>
-                        <td>{{ $seo['meta_description'] }}</td>
-                        <td>{{ $seo['meta_keywords'] }}</td>
-                        <td class="msg">{{ $seo['author'] }}</td>
+                        <td>{{ $seoPage->seopage }}</td>
+                        <td>{{ $seoPage->title ?? 'N/A' }}</td>
+                        <td>{{ $seoPage->meta_description ?? 'N/A' }}</td>
+                        <td>{{ $seoPage->meta_keywords ?? 'N/A' }}</td>
+                        <td>{{ $seoPage->author ?? 'N/A' }}</td>
                         <td>
-                            <button onclick="viewContact('{{ $seo['page'] }}','{{ $seo['title'] }}','{{ $seo['meta_description'] }}','{{ $seo['meta_keywords'] }}','{{ $seo['author'] }}')" class="view-btn">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
+                            <div class="d-flex gap-2">
+                                <button onclick="viewSeoPage(
+                                    '{{ $seoPage->seopage }}', 
+                                    '{{ $seoPage->title ?? 'N/A' }}', 
+                                    '{{ $seoPage->meta_description ?? 'N/A' }}', 
+                                    '{{ $seoPage->meta_keywords ?? 'N/A' }}', 
+                                    '{{ $seoPage->author ?? 'N/A' }}'
+                                )" class="view-btn">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <a href="{{ route('dashboard.seopages.getByIds', $seoPage->id) }}" class="edit-btn">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Modal for Viewing Details -->
-<div class="modal" id="contactModal" style="display: none;">
-    <div class="view-popup">
-        <div class="viewpopup-content">
-            <div class="close-btn" onclick="closeModal()">
-                <i class="fa-solid fa-circle-xmark"></i>
-            </div>
-            <h5 class="mx-3">Author Detail</h5>
-            <div class="popup-body">
-                <p><strong>Author:</strong> <span id="modal-page"></span></p>
-                <p><strong>Author:</strong> <span id="modal-title"></span></p>
-                <p><strong>Author:</strong> <span id="modal-meta_description"></span></p>
-                <p><strong>Author:</strong> <span id="modal-meta_keywords"></span></p>
-                <p><strong>Author:</strong> <span id="modal-author"></span></p>
-
-            </div>
-        </div>
+<!-- SEO Page View Popup -->
+<div id="seoPopup" class="seopopup-overlay" style="display: none;" aria-hidden="true">
+    <p onclick="closePopup()" class="close-btn">
+        <i class="fa-solid fa-square-xmark text-white"></i>
+    </p>
+    <div class="seopopup-content">
+        <h6>SEO Page Details</h6>
+        <h2><span id="popupPage"></span></h2>
+        <p><strong>Title:</strong> <span id="popupTitle"></span></p>
+        <p><strong>Meta Description:</strong> <span id="popupDescription"></span></p>
+        <p><strong>Meta Keywords:</strong> <span id="popupKeywords"></span></p>
+        <p><strong>Author:</strong> <span id="popupAuthor"></span></p>
     </div>
 </div>
 
+<!-- JavaScript for View Popup -->
 <script>
-function viewContact(page,title,meta_description,meta_keywords,author) {
-    document.getElementById('modal-page').textContent = page;
-    document.getElementById('modal-title').textContent = title;
-    document.getElementById('modal-meta_description').textContent = meta_description;
-    document.getElementById('modal-meta_keywords').textContent = meta_keywords;
-    document.getElementById('modal-author').textContent = author;
-    document.getElementById('contactModal').style.display = 'block';
+function viewSeoPage(page, title, description, keywords, author) {
+    document.getElementById('popupPage').innerText = page.toUpperCase();
+    document.getElementById('popupTitle').innerText = title;
+    document.getElementById('popupDescription').innerText = description;
+    document.getElementById('popupKeywords').innerText = keywords;
+    document.getElementById('popupAuthor').innerText = author;
+    
+    document.getElementById('seoPopup').style.display = 'flex';
 }
-function closeModal() {
-    document.getElementById('contactModal').style.display = 'none';
+
+function closePopup() {
+    document.getElementById('seoPopup').style.display = 'none';
 }
 </script>
-<script>
-   document.addEventListener("DOMContentLoaded", function () {
-    const selectPage = document.getElementById("seoPageSelect");
-    const seoTitleDisplay = document.getElementById("seoTitleDisplay");
-    const seoFullTitle = document.getElementById("seoFullTitle");
-    const seoDescription = document.getElementById("seoDescription");
-    const seoKeywords = document.getElementById("seoKeywords");
-    const seoAuthor = document.getElementById("seoAuthor");
-    const updateButton = document.getElementById("updateSeoBtn");
 
-    selectPage.addEventListener("change", function () {
-        const selectedPage = this.value;
-        
-        fetch(`/soe/${selectedPage}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    seoTitleDisplay.textContent = data.title || "No Title Found";
-                    seoFullTitle.value = data.title || "";
-                    seoDescription.value = data.meta_description || "";
-                    seoKeywords.value = data.meta_keywords || "";
-                    seoAuthor.value = data.author || "";
-                }
-            })
-            .catch(error => console.error("Error fetching SEO data:", error));
-    });
+<!-- Styles -->
+<style>
+/* Popup Styling */
 
-    updateButton.addEventListener("click", function () {
-        const selectedPage = selectPage.value;
-        if (!selectedPage) {
-            alert("Please select a page first!");
-            return;
-        }
-
-        const updatedData = {
-            title: seoFullTitle.value,
-            meta_description: seoDescription.value,
-            meta_keywords: seoKeywords.value,
-            author: seoAuthor.value
-        };
-
-        fetch(`/soe/update/${selectedPage}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify(updatedData)
-        })
-        .then(response => response.json())
-        .then(data => alert(data.message))
-        .catch(error => console.error("Error updating SEO data:", error));
-    });
-});
-
-    </script>
-    
-
+</style>
 @endsection

@@ -111,7 +111,7 @@
        
             <div class="popup-body">
                 <h1 class="mx-3">Service Detail</h1>
-                <img id="modal-service-image" src="" alt="Service Image" width="500">
+                <img id="modal-service-image" src="" alt="Service Image" class="w-100">
                 <h3><strong>Service Name:</strong></h3>
                 <p><strong>Category:</strong>  
                      <p id="modal-service-category"></p></p>

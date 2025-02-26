@@ -67,7 +67,7 @@ class ServiceController
             'service' => 'string|max:255',
             'category' => 'string|max:255',
             'image' => 'image|mimes:webp,jpeg,png,jpg,gif|max:2048', // Image validation
-            'active' => 'boolean',
+            'active' => 'nullable|boolean',
             'description' => 'string',
         ]);
     
@@ -77,7 +77,7 @@ class ServiceController
         // Update the service details
         $service->service = $request->service;
         $service->category = $request->category;
-        $service->active = $request->active;
+        $service->active = $request->active ?? 0;
         $service->description = $request->description;
     
         // Handle the image upload

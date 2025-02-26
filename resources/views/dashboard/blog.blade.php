@@ -63,7 +63,7 @@
        
             <div class="popup-body">
                 <h4 class="my-3">Blogs Detail</h4>
-                <img id="modal-service-image" src="" alt="Service Image" width="500">
+                <img id="modal-service-image" src="" alt="Service Image" class="w-100 my-3">
                <div class="d-flex gap-4 align-items-center">
                 <h4 id='modal-service-name' class="fs-3"></h4><button id="modal-service-active" class="btn"></button>
                </div>

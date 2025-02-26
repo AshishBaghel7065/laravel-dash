@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\MailController; // Import the MailController
+use Illuminate\Support\Facades\Mail; 
+
+
 
 class ContactController
 {
@@ -42,6 +46,18 @@ class ContactController
             ]);
 
             Contact::create($validatedData);
+
+            $name = $request->name;
+            $email = $request->email;
+            $phone = $request->phone;
+            $date_of_appointment =  $request->date_of_appointment;
+            $message = $request->message;
+
+        // Call the sendUserDetailsMail method
+        $mailController = new MailController();
+        $mailController->sendUserDetails($name , $email , $phone , $message  ,$date_of_appointment); // No parameters passed
+
+
             return redirect('/')->with('success', 'Contact created successfully');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors());
