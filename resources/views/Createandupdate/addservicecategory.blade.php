@@ -1,7 +1,10 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<h3>Create Service Category</h3>
+<div class="add-faq">
+    <h3 class="p-2">Service Category Management</h3>
+    <a href="/dashboard/service/create"><button>Back To Add Service</button></a>
+</div>
 
 <form method="POST" action="{{ route('dashboard.service.category.create') }}" enctype="multipart/form-data" class="add-form">
     @csrf

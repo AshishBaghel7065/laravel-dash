@@ -22,7 +22,7 @@
 
             <div class="add-faq">
                 <h5>Create a New Blog Post</h5>
-                <a href="/dashboard/blog/create"><button>Add Blog Category</button></a>
+                <a href="/dashboard/blog/category/create"><button>Add Blog Category</button></a>
             </div>
 
             <form method="POST" action="{{ route('dashboard.blog.store') }}" enctype="multipart/form-data" class="add-form">
@@ -50,12 +50,11 @@
                         <div class="form-group">
                             <label for="category">Category:</label>
                             <select class="form-control" id="category" name="category" required>
-                                <option value="Web Development">Web Development</option>
-                                <option value="Mobile Development">Mobile Development</option>
-                                <option value="Cloud Computing">Cloud Computing</option>
-                                <option value="Data Science">Data Science</option>
-                                <option value="Cybersecurity">Cybersecurity</option>
-                            </select>
+                                @foreach ($Blogcategories as $category)
+                                <option value="{{ strtolower($category->title) }}">{{ ucwords($category->title) }}</option>
+                            @endforeach
+                            
+                    </select>
                         </div>
                     </div>
 

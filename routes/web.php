@@ -11,6 +11,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SeoPageController;
 use App\Http\Controllers\ServiceCategoryController;
+use App\Http\Controllers\BlogCategoryController;
+
 use Illuminate\Support\Facades\Auth;
 
 // Public Pages Routes 
@@ -76,21 +78,14 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/service/update/{id}', [ServiceController::class, 'updateService'])->name('service.update');
         Route::delete('/service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
-        
+
+
+
         // Display all service categories in the dashboard
         Route::get('/service/create', [ServiceCategoryController::class, 'getAll'])->name('Createandupdate.addservice');
         Route::get('/service/category/create', [ServiceCategoryController::class, 'getAll2'])->name('Createandupdate.addservicecategory');
-
-        
-        // Create a new service category
-
-
-        Route::post('/service/category/create', [ServiceCategoryController::class, 'create'])
-             ->name('service.category.create');
-        
-
-        Route::delete('/service/category/{id}', [ServiceCategoryController::class, 'delete'])
-                 ->name('service.category.delete');
+        Route::post('/service/category/create', [ServiceCategoryController::class, 'create'])->name('service.category.create');
+        Route::delete('/service/category/{id}', [ServiceCategoryController::class, 'delete'])->name('service.category.delete');
              
 
 
@@ -112,6 +107,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/blog/update/{id}', [BlogController::class, 'getByIds'])->name('blog.getByIds');
         Route::put('/blog/update/{id}', [BlogController::class, 'updateBlog'])->name('blog.update');
         Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+
+
+        // Blog Category Routes
+        Route::get('/blog/create', [BlogCategoryController::class, 'getAll'])->name('Createandupdate.addblog');
+        Route::get('/blog/category/create', [BlogCategoryController::class, 'getAll2'])->name('Createandupdate.addservicecategory');
+        Route::post('/blog/category/create', [BlogCategoryController::class, 'create'])->name('blog.category.create');
+        Route::delete('/blog/category/{id}', [BlogCategoryController::class, 'delete'])->name('blog.category.delete');
+        
 
    
 
