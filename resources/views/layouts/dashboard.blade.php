@@ -35,9 +35,102 @@
 }
 
     </style>
+
+<style>
+    .custom-alert {
+        position: fixed;
+        top: 40px;
+        right: 30px;
+        /* background-color: #ff4d4d; */
+        background-color: white;
+        color: white;
+        font-weight: 700;
+        padding: 0px 20px;
+        padding-top: 10px;
+        border-radius:50px;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        width: 350px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 1000;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .custom-alert.success {
+        background-color: white;
+        color: green
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .progress {
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        margin-top: 8px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        background-color: white;
+        transition: width 10s linear;
+    }
+</style>
 </head>
 
 <body>
+    <div class="container">
+        @if ($errors->any())
+            <div class="custom-alert" id="error-alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" id="error-progress" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        @endif
+    
+        @if(session('success'))
+            <div class="custom-alert success" id="success-alert">
+                {{ session('success') }}
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" id="success-progress" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        @endif
+    </div>
+    
+    <script>
+        function startCountdown(alertId, progressId) {
+            let alertElement = document.getElementById(alertId);
+            let progressElement = document.getElementById(progressId);
+    
+            if (alertElement) {
+                let width = 100;
+                let interval = setInterval(() => {
+                    width -= 5; // Decrease width by 10% every second
+                    progressElement.style.width = width + "%";
+                    progressElement.setAttribute("aria-valuenow", width);
+    
+                    if (width <= -10) {
+                        clearInterval(interval);
+                        alertElement.style.display = 'none';
+                        location.reload(); // Refresh the page after alert disappears
+                    }
+                },1000);
+            }
+        }
+    
+        // Start countdown for error and success alerts
+        startCountdown('error-alert', 'error-progress');
+        startCountdown('success-alert', 'error-progress');
+    </script>
     <div class="dashboard-main ubuntu-light">
         <div class="nav-aside" id="aside">
             <div class="aside-nav-menu">

@@ -321,12 +321,12 @@ footer span {
 .dashboard {
     background-color: white;
     padding: 20px;
-    margin-top: 20px;
+    margin-top: 0px;
     border-radius: 5px;
 }
 
 .show-card {
-    margin: 5px;
+    margin-top: 25px;
     background-color: white;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     padding: 15px;
@@ -605,6 +605,7 @@ table td img {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transition: all ease-in-out 200ms
 } 
+
 .add-faq button:hover{
     box-shadow: none;
 }
@@ -613,6 +614,23 @@ table td img {
     background-color: #d58606;
 }
 
+
+.add-btn{
+    background-color: #f39c12;
+    color: white;
+    padding: 7px 20px;
+    border-radius: 40px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all ease-in-out 200ms
+} 
+.add-btn:hover{
+    box-shadow: none;
+}
+.add-btn:active{
+    box-shadow: none;
+    background-color: #d58606;
+}
 .close-btn {
     cursor: pointer;
     position: absolute;
@@ -733,7 +751,6 @@ position: relative;
     border-radius: 8px;
     text-align: center;
 }
-
 
 /* Mobile View: Make table scrollable */
 @media screen and (max-width: 768px) {

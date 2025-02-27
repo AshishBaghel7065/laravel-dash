@@ -47,7 +47,9 @@
                         <div class="form-group">
                             <label for="category">Category:</label>
                             <select class="form-control" id="category" name="category" required>
+                                <option value="" selected disabled>Select Service Category</option>
                                 @foreach ($categories as $category)
+                                
                                 <option value="{{ strtolower($category->title) }}">{{ ucwords($category->title) }}</option>
                             @endforeach
                             

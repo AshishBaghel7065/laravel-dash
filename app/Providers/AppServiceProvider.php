@@ -10,6 +10,10 @@ use App\Http\View\Composers\AboutComposer;
 use App\Http\View\Composers\BlogComposer;
 use App\Http\View\Composers\ReviewComposer;
 use App\Http\View\Composers\SeoComposer;
+use App\Models\BlogCategory;
+use App\Models\ServiceCategory;
+use App\Http\View\Composers\BlogCategoryComposer;
+use App\Http\View\Composers\ServiceCategoryComposer;
 use Illuminate\Support\Facades\View;
 
 
@@ -37,6 +41,15 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', BlogComposer::class);
         View::composer('*', ReviewComposer::class);
         View::composer('*', SeoComposer::class); // Registered SeoComposer
+        View::composer('*', BlogCategoryComposer::class);
+        View::composer('*', ServiceCategoryComposer::class);
+        View::composer('*', function ($view) {
+            $view->with('globalBlogCategories', BlogCategory::all());
+        });
+        View::composer('*', function ($view) {
+            $view->with('globalServiceCategories', ServiceCategory::all());
+        });
+
 
 
     }

@@ -24,6 +24,14 @@ class ServiceCategoryController
         // Return the dashboard view with categories
         return view('Createandupdate.addservicecategory', compact('categories'));
     }
+    public function getAll3()
+    {
+        // Fetch all service categories
+        $categories = ServiceCategory::all();
+
+        // Return the dashboard view with categories
+        return view('Createandupdate.updateservice', compact('categories'));
+    }
 
     public function create(Request $request)
     {

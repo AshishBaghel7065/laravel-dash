@@ -76,6 +76,41 @@
 </div>
 
 
+<div class="col-lg-6 my-5">
+    <div class="d-flex flex-wrap my-2 align-items-center justify-content-between">
+        <h5 class="p-2">Service Category Management</h5>
+        <a href="/dashboard/service/category/create"><button class="add-btn">Add Service Cetegory</button></a>
+    </div>
+    
+<div class="dashboard ">
+    <div class="container">
+        <div class="table-box">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th >Sr. No</th>
+                        <th >Service Category</th>
+                       
+                    </tr>
+                </thead>
+                <tbody id="categoryTableBody">
+                    @foreach ($globalServiceCategories as $index => $category)
+                        <tr id="categoryRow{{ $category->id }}">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ ucwords($category->title) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @if($globalServiceCategories->isEmpty())
+                <p class="text-center mt-3">No service categories available.</p>
+            @endif
+        </div>
+    </div>
+</div>
+
+</div>
+
 <!--<!-- Delete Confirmation Popup Modal -->
 <div id="deletePopup" class="delete-popup" style="display: none;">
     <div class="deletepopup-content">

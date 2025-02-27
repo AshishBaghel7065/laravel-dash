@@ -6,10 +6,9 @@
         <div class="update-service-box">
             <h5>Update Service</h5>
             <form method="POST" enctype="multipart/form-data" class="add-form" action="{{ route('dashboard.service.update', $service->id) }}">
-                @csrf <!-- CSRF Token for security -->
-                @method('PUT') <!-- This is required for PUT requests -->
+                @csrf 
+                @method('PUT') 
                 
-                <!-- Service Name -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
@@ -19,22 +18,23 @@
                     </div>
                 </div>
 
-                <!-- Category -->
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="category">Category:</label>
                             <select class="form-control" id="category" name="category" required>
-                                <option value="Value1" {{ $service->category == 'Value1' ? 'selected' : '' }}>Value 1</option>
-                                <option value="Value2" {{ $service->category == 'Value2' ? 'selected' : '' }}>Value 2</option>
-                                <option value="Value3" {{ $service->category == 'Value3' ? 'selected' : '' }}>Value 3</option>
-                                <option value="Value4" {{ $service->category == 'Value4' ? 'selected' : '' }}>Value 4</option>
-                                <option value="Value5" {{ $service->category == 'Value5' ? 'selected' : '' }}>Value 5</option>
+                                <option value="{{ old('service', $service->category) }}">{{ old('service', $service->category) }}</option>
+            
+                                @foreach ($globalServiceCategories as $category)
+                                
+                                <option value="{{ strtolower($category->title) }}">{{ ucwords($category->title) }}</option>
+                            @endforeach
+                            
+          
                             </select>
                         </div>
                     </div>
 
-                    <!-- Image URL -->
                     <div class="col-lg-5">
                         <div class="form-group">
                             <label for="image">Image:</label>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
 
-                    <!-- Active/InActive Status -->
+               
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="status">Active / Inactive</label>
@@ -58,7 +58,6 @@
                     </div>
                 </div>
 
-                <!-- Description with Summernote -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
@@ -68,7 +67,7 @@
                     </div>
                 </div>
 
-                <!-- Submit Button -->
+
                 <div class="row">
                     <div class="col-lg-12">
                         <button type="submit" class="submit-btn">Update Service</button>

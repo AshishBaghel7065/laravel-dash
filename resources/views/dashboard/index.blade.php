@@ -1,12 +1,13 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<h3 class="text-3xl font-semibold m-2">Welcome to Your Dashboard</h3>
+
 <div class="dashboard">
+    <h2 class="text-3xl font-semibold"><i class="fa-solid fa-users-rectangle"></i> Welcome to Your Dashboard</h2>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="row">
+                <div class="row pb-5">
                     <div class="col-lg-3">
                         <div class="show-card">
                             <div class="show-head">
@@ -65,9 +66,6 @@
                         </div>
                     </div>
                 
-
-                </div>
-                <div class="row my-2">
                     <div class="col-lg-3">
                         <div class="show-card">
                             <div class="show-head">
@@ -140,6 +138,7 @@
                     </div>
 
                 </div>
+              
 
             </div>
 

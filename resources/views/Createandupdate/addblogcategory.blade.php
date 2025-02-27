@@ -3,7 +3,7 @@
 @section('content')
 <div class="add-faq">
     <h3 class="p-2">Blog Category Management</h3>
-    <a href="/dashboard/blog/create"><button>Back To Add Blog</button></a>
+    <a href="/dashboard/blog"><button>Back To Blog</button></a>
 </div>
 
 <form method="POST" action="{{ route('dashboard.blog.category.create') }}" enctype="multipart/form-data" class="add-form">

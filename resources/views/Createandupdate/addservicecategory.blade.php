@@ -3,7 +3,7 @@
 @section('content')
 <div class="add-faq">
     <h3 class="p-2">Service Category Management</h3>
-    <a href="/dashboard/service/create"><button>Back To Add Service</button></a>
+    <a href="/dashboard/service"><button>Back To Service</button></a>
 </div>
 
 <form method="POST" action="{{ route('dashboard.service.category.create') }}" enctype="multipart/form-data" class="add-form">
@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-lg-7">
-            <div class="dashboard overscroll">
+            <div class="dashboard">
                 <div class="container">
                     <div class="table-box">
                         <table class="table">

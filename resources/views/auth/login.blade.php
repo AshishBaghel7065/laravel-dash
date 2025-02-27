@@ -2,25 +2,10 @@
 
 @section('content')
 <div class="container">
-    <h2>Login</h2>
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+   
+    
 
+    
     <form action="{{ route('login') }}" method="POST">
         @csrf
         <div>

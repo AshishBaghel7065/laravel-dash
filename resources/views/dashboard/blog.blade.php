@@ -45,7 +45,47 @@
                 </table>
             </div>
         </div>
+        <nav>
+            <ul id="pagination" class="pagination"></ul>
+        </nav>
     </div>
+    
+    
+<div class="col-lg-6 my-4">
+    <div class="d-flex flex-wrap my-2 align-items-center justify-content-between">
+        <h5 class="p-2">Blog Category Management</h5>
+        <a href="/dashboard/blog/category/create"><button class="add-btn">Add Blog Cetegory</button></a>
+    </div>
+        <div class="dashboard">
+            <div class="container">
+                <div class="table-box2">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="width:30%">Sr. No</th>
+                                <th style="width:70%">Blog Category</th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody id="categoryTableBody">
+                            
+                            @foreach ($globalBlogCategories as $index => $category)
+                                <tr id="categoryRow{{ $category->id }}">
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ ucwords($category->title) }}</td>
+                                 
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @if($globalBlogCategories->isEmpty())
+                        <p class="text-center mt-3">No service categories available.</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div> 
+
 
 
 
@@ -89,6 +129,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 
@@ -113,6 +154,74 @@
        
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let currentPage = 1;
+        const blogsPerPage = 5;
+        const blogs = Array.from(document.querySelectorAll('.table-box tbody tr'));
+        const paginationContainer = document.getElementById('pagination');
+
+        function displayBlogs() {
+            const startIndex = (currentPage - 1) * blogsPerPage;
+            const endIndex = startIndex + blogsPerPage;
+
+            blogs.forEach((blog, index) => {
+                blog.style.display = index >= startIndex && index < endIndex ? 'table-row' : 'none';
+            });
+
+            generatePagination();
+        }
+
+        function generatePagination() {
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(blogs.length / blogsPerPage);
+
+            if (totalPages <= 1) return; // No pagination needed for one page.
+
+            // Previous Button
+            let prevButton = document.createElement('li');
+            prevButton.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+            prevButton.innerHTML = `<a class="page-link" href="#">Previous</a>`;
+            prevButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayBlogs();
+                }
+            });
+            paginationContainer.appendChild(prevButton);
+
+            // Page Numbers
+            for (let i = 1; i <= totalPages; i++) {
+                let pageButton = document.createElement('li');
+                pageButton.className = `page-item ${currentPage === i ? 'active' : ''}`;
+                pageButton.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                pageButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    displayBlogs();
+                });
+                paginationContainer.appendChild(pageButton);
+            }
+
+            // Next Button
+            let nextButton = document.createElement('li');
+            nextButton.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+            nextButton.innerHTML = `<a class="page-link" href="#">Next</a>`;
+            nextButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayBlogs();
+                }
+            });
+            paginationContainer.appendChild(nextButton);
+        }
+
+        // Initial Display
+        displayBlogs();
+    });
+</script>
 
 <script>
     // Open delete confirmation modal

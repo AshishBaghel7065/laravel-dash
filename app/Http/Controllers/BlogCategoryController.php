@@ -24,6 +24,16 @@ class BlogCategoryController
         // Return the dashboard view with categories
         return view('Createandupdate.addblogcategory', compact('Blogcategories'));
     }
+    public function getAll3()
+    {
+        // Fetch all blog categories
+        $Blogcategories = BlogCategory::all();
+
+        // Return the dashboard view with categories
+        return view('Createandupdate.updateblog', compact('Blogcategories'));
+    }
+   
+   
 
     public function create(Request $request)
     {

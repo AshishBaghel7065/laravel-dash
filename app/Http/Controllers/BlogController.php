@@ -26,6 +26,8 @@ class BlogController
         return redirect()->route('dashboard.blog')->with('success', 'Blogs loaded successfully');
     }
 
+
+
     // Show form to create a new blog
     public function createBlogForm()
     {

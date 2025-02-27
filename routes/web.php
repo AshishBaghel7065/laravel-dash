@@ -112,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
         // Blog Category Routes
         Route::get('/blog/create', [BlogCategoryController::class, 'getAll'])->name('Createandupdate.addblog');
         Route::get('/blog/category/create', [BlogCategoryController::class, 'getAll2'])->name('Createandupdate.addservicecategory');
+        Route::get('/blog/update/', [BlogCategoryController::class, 'getAll3'])->name('Createandupdate.updateblog');
         Route::post('/blog/category/create', [BlogCategoryController::class, 'create'])->name('blog.category.create');
         Route::delete('/blog/category/{id}', [BlogCategoryController::class, 'delete'])->name('blog.category.delete');
         

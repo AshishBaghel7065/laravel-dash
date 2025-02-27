@@ -48,6 +48,12 @@
                 <div class="form-group">
                     <label for="date_of_appointment">Date of Appointment</label>
                     <input type="date" class="form-control" id="date_of_appointment" name="date_of_appointment" required>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                          let today = new Date().toISOString().split('T')[0];
+                          document.getElementById("date_of_appointment").setAttribute("min", today);
+                        });
+                      </script>
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>

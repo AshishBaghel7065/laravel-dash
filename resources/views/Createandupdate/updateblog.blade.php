@@ -49,12 +49,12 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="category">Category:</label>
+                    
                             <select class="form-control" id="category" name="category" required>
-                                <option value="Web Development" {{ $blog->category == 'Web Development' ? 'selected' : '' }}>Web Development</option>
-                                <option value="Mobile Development" {{ $blog->category == 'Mobile Development' ? 'selected' : '' }}>Mobile Development</option>
-                                <option value="Cloud Computing" {{ $blog->category == 'Cloud Computing' ? 'selected' : '' }}>Cloud Computing</option>
-                                <option value="Data Science" {{ $blog->category == 'Data Science' ? 'selected' : '' }}>Data Science</option>
-                                <option value="Cybersecurity" {{ $blog->category == 'Cybersecurity' ? 'selected' : '' }}>Cybersecurity</option>
+                                <option value="{{ $blog->category }}" selected disabled>{{ $blog->category }}</option>
+                                @foreach ($globalBlogCategories as $category)
+                                <option value="{{ strtolower($category->title) }}">{{ ucwords($category->title) }}</option>
+                            @endforeach
                             </select>
                         </div>
                     </div>
