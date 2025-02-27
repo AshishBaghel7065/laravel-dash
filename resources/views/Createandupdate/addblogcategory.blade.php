@@ -56,6 +56,11 @@
     </div>
 </form>
 
+
+<div id="alert-container"></div>
+
+
+
 <!-- Delete Confirmation Popup Modal -->
 <div id="deletePopup" class="delete-popup" style="display: none;">
     <div class="deletepopup-content">
@@ -68,7 +73,39 @@
     </div>
 </div>
 
+
 <script>
+   function showAlert(message, type = 'error') {
+    let alertContainer = document.getElementById('alert-container');
+
+    let alertDiv = document.createElement('div');
+    alertDiv.className = `custom-alert ${type}`;
+    alertDiv.innerHTML = `
+        <p class="my-2">${message}</p>
+        <p class="btn-close" onclick="closeAlert(this)"></p>
+    `;
+
+    alertContainer.appendChild(alertDiv);
+
+    // Auto close alert after 5 seconds
+    setTimeout(() => closeAlert(alertDiv), 5000);
+
+    // ✅ Reload the page after 3 seconds if it's a success message
+    if (type === 'success') {
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
+    }
+}
+
+
+    function closeAlert(element) {
+        element.parentElement.style.opacity = "0"; 
+        setTimeout(() => {
+            element.parentElement.remove();
+        }, 300);
+    }
+
     let deleteServiceId = null;
 
     function openDeleteModal(id) {
@@ -90,29 +127,24 @@
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => {
-            if (!response.ok) throw new Error('Failed to delete category');
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Remove row from table
                 const row = document.getElementById(`categoryRow${deleteServiceId}`);
                 if (row) row.remove();
 
-                // Close modal
                 closeDeleteModal();
+                showAlert('Category deleted successfully!', 'success'); // ✅ Success alert
                 
-                // Refresh the page after successful deletion
-                window.location.reload();
+
             } else {
-                alert(data.message); // Show error message from Laravel
+                showAlert(data.message, 'error');
             }
         })
         .catch(error => {
             console.error('Error deleting category:', error);
+            showAlert('Error! Something went wrong.', 'error');
         });
     }
 </script>
-
 @endsection

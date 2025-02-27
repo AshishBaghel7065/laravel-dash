@@ -58,7 +58,7 @@ class ContactController
         $mailController->sendUserDetails($name , $email , $phone , $message  ,$date_of_appointment); // No parameters passed
 
 
-            return redirect('/')->with('success', 'Contact created successfully');
+            return redirect('/')->with('success', 'Appointment Register successfully');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors());
         }

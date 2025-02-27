@@ -6,29 +6,8 @@
     <a href="/dashboard/service/create"><button>Add Service</button></a>
 </div>
 
-@if(session('success'))
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
-@if(session('error'))
-<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    {{ session('error') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
 
-@if ($errors->any())
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
+
 
 <div class="dashboard">
     <div class="container">
@@ -145,14 +124,14 @@
         <div class="viewpopup-content">
        
             <div class="popup-body">
-                <h1 class="mx-3">Service Detail</h1>
-                <img id="modal-service-image" src="" alt="Service Image" class="w-100">
-                <h3><strong>Service Name:</strong></h3>
-                <p><strong>Category:</strong>  
-                     <p id="modal-service-category"></p></p>
+                <h5 class="bg-light p-3">Service Detail |  <button id="modal-service-active" class="btn"></button></h5>
+                
+                <img id="modal-service-image" src="" alt="Service Image" class="w-50 border rounded">
+                <p><strong>Category : </strong>  <span id="modal-service-category"></span> | </p>
+                <h5 class="mt-2"><span id="modal-service-name"></span></h5>
+               
                 <h3 id="modal-service-name"></h3>
-                <p><strong>Description:</strong></p>
-                <p id="modal-service-description"></p>
+                <p><strong>Description:</strong><span id="modal-service-description"></span></p>
             
          
             </div>
@@ -170,9 +149,24 @@
                 document.getElementById('modal-service-description').innerHTML = data.description;
                 document.getElementById('modal-service-category').textContent = data.category;
                 document.getElementById('modal-service-image').src = '/storage/' + data.image;
-    
+                 console.log(data)
                 document.getElementById('serviceModal').style.display = 'block';
                 document.getElementById('overlay').style.display = 'block';
+                let myactive =""
+                if(data.active == 1){
+                    myactive = "Active"
+                }
+                else if(data.active == 0){
+                     myactive = "Unactive"
+                }
+                document.getElementById('modal-service-active').textContent =myactive;
+        if(myactive == "Active") {
+            document.getElementById('modal-service-active').classList.add("btn-success");
+            document.getElementById('modal-service-active').classList.remove("btn-danger");
+        } else {
+            document.getElementById('modal-service-active').classList.add("btn-danger");
+            document.getElementById('modal-service-active').classList.remove("btn-success");
+        }
             })
             .catch(error => console.error('Error fetching service:', error));
     }

@@ -4,22 +4,6 @@
 <div class="main-content">
     <div class="container mt-4">
         <div class="update-seo-box">
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <div class="add-faq">
                 <h5>Update SEO Metadata</h5>
                 <a href="/dashboard/seo"><button>Back to SEO Pages</button></a>

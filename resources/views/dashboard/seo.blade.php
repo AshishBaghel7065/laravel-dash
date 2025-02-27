@@ -52,7 +52,7 @@
 
 <!-- SEO Page View Popup -->
 <div id="seoPopup" class="seopopup-overlay" style="display: none;" aria-hidden="true">
-    <p onclick="closePopup()" class="close-btn">
+    <p onclick="closePopup()" class="close-btn bg-white px-2">
         <i class="fa-solid fa-square-xmark text-white"></i>
     </p>
     <div class="seopopup-content">

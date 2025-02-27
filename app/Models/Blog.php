@@ -27,6 +27,7 @@ class Blog extends Model
     protected $casts = [
         'active' => 'boolean',
         'publish' => 'date',
+        'meta_tags' => 'string', // Default value
     ];
 }
 

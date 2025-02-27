@@ -4,22 +4,6 @@
 <div class="main-content">
     <div class="container mt-4">
         <div class="add-review-box">
-            @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <div class="add-faq">
                 <h5>Create a New Review</h5>
             </div>

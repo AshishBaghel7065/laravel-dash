@@ -4,21 +4,7 @@
 <div class="main-content">
     <div class="container mt-4">
         <div class="add-blog-box">
-            @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-        
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
+
 
             <div class="add-faq">
                 <h5>Update Blog Post</h5>
@@ -84,18 +70,22 @@
                     <div class="col-lg-7">
                         <div class="form-group">
                             <label for="seo_tags">SEO Tags:</label>
-                            <input type="text" class="form-control" id="meta_tags" name="meta_tags" placeholder="Comma-separated tags">
+                            <input type="text" class="form-control" id="meta_tags" name="meta_tags" placeholder="Comma-separated tags" required>
                         </div>
-                        <div class="my-3">
-                            <h6>Prev Tag</h6>
+                        <div class="">
+                         
                             <div>
                                 @php
                                 $tags = explode(',', $blog->meta_tags);
+        
                             @endphp
                             
+                            <p class="meta-tags text-danger bg-transparent">Please Copy that Part And Paste into Meta Tags if you Don't Want to Update Anything in Meta Tags</p>
+                            <p class="meta-tags bg-white fs-6">{{ implode(', ', $tags) }}</p>
+                            <h6 class="mt-3 mx-2">Prev Tag</h6>
                             @foreach($tags as $tag)
-                                <button class="meta-tags bg-white">{{ $tag }}</button>
-                            @endforeach
+                            <button class="meta-tags mt-3 ">{{ $tag }}</button>
+                        @endforeach
                             </div>
                         </div>
                     </div>

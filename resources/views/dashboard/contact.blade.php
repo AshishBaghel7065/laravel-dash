@@ -1,15 +1,5 @@
 @extends('layouts.dashboard')
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
 
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
 
 @section('content')
 <h3 class="p-2">Contact</h3>

@@ -19,117 +19,42 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <style>
-        /* Ensure proper display for headings and lists */
-.note-editable h1 {
-    font-size: 2em;
-    font-weight: bold;
-}
-
-.note-editable ul, .note-editable ol {
-    margin-left: 20px;
-}
-
-.note-editable li {
-    margin-bottom: 5px;
-}
-
-    </style>
-
-<style>
-    .custom-alert {
-        position: fixed;
-        top: 40px;
-        right: 30px;
-        /* background-color: #ff4d4d; */
-        background-color: white;
-        color: white;
-        font-weight: 700;
-        padding: 0px 20px;
-        padding-top: 10px;
-        border-radius:50px;
-        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-        width: 350px;
-        font-size: 14px;
-        font-weight: 500;
-        z-index: 1000;
-        animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .custom-alert.success {
-        background-color: white;
-        color: green
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .progress {
-        height: 1px;
-        background-color: rgba(255, 255, 255, 0.3);
-        border-radius: 4px;
-        margin-top: 8px;
-        overflow: hidden;
-    }
-
-    .progress-bar {
-        background-color: white;
-        transition: width 10s linear;
-    }
-</style>
+   
 </head>
 
 <body>
+  
     <div class="container">
         @if ($errors->any())
             <div class="custom-alert" id="error-alert">
-                <ul>
+                <div>
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <p class="my-2"><i class="fa-solid fa-triangle-exclamation"></i> {{ $error }}</p>
                     @endforeach
-                </ul>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" id="error-progress" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
+                <p class="btn-close" onclick="closeAlert(this)"></p>
             </div>
         @endif
     
         @if(session('success'))
             <div class="custom-alert success" id="success-alert">
-                {{ session('success') }}
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" id="success-progress" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                <p class="my-2"><i class="fa-solid fa-circle-check"></i> {{ session('success') }}</p>
+                <p class="btn-close" onclick="closeAlert(this)"></p>
             </div>
         @endif
     </div>
-    
+
     <script>
-        function startCountdown(alertId, progressId) {
-            let alertElement = document.getElementById(alertId);
-            let progressElement = document.getElementById(progressId);
-    
-            if (alertElement) {
-                let width = 100;
-                let interval = setInterval(() => {
-                    width -= 5; // Decrease width by 10% every second
-                    progressElement.style.width = width + "%";
-                    progressElement.setAttribute("aria-valuenow", width);
-    
-                    if (width <= -10) {
-                        clearInterval(interval);
-                        alertElement.style.display = 'none';
-                        location.reload(); // Refresh the page after alert disappears
-                    }
-                },1000);
-            }
-        }
-    
-        // Start countdown for error and success alerts
-        startCountdown('error-alert', 'error-progress');
-        startCountdown('success-alert', 'error-progress');
+       function closeAlert(element) {
+    let alertElement = element.parentElement; // Get parent div (alert box)
+    if (alertElement) {
+        alertElement.style.opacity = "0"; // Fade out effect
+        setTimeout(() => {
+            alertElement.remove(); // Remove from DOM after fade-out
+        }, 300); // Smooth transition
+    }
+}
+
     </script>
     <div class="dashboard-main ubuntu-light">
         <div class="nav-aside" id="aside">

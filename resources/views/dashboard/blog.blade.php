@@ -102,9 +102,9 @@
         <div class="viewpopup-content">
        
             <div class="popup-body">
-                <h4 class="my-3">Blogs Detail</h4>
-                <img id="modal-service-image" src="" alt="Service Image" class="w-100 my-3">
-               <div class="d-flex gap-4 align-items-center">
+                <h4 class="p-3 rounded bg-light">Blogs Detail</h4>
+                <img id="modal-service-image" src="" alt="Service Image" class="w-50 border rounded my-3">
+               <div class="d-flex gap-4 align-items-center my-3">
                 <h4 id='modal-service-name' class="fs-3"></h4><button id="modal-service-active" class="btn"></button>
                </div>
                 <p class="fs-6">

@@ -22,7 +22,7 @@ class AboutController
     public function getDashboardUpdateAbout()
     {
         $updateAbout = About::all();
-        return redirect()->route('dashboard.updateabout')->with('success', 'UpdateAbout data loaded successfully');
+        return redirect()->route('dashboard.updateabout')->with('success', 'About Data Get successfully');
     }
 
     public function createUpdateAboutForm()
@@ -47,7 +47,7 @@ class AboutController
 
             About::create($validatedData);
 
-            return redirect()->route('dashboard.about')->with('success', 'UpdateAbout data created successfully');
+            return redirect()->route('dashboard.about')->with('success', 'About data created successfully');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors());
         }
@@ -79,7 +79,7 @@ class AboutController
         $updateAbout->active = $request->active;
         $updateAbout->save();
 
-        return redirect()->route('dashboard.about')->with('success', 'UpdateAbout section updated successfully!');
+        return redirect()->route('dashboard.about')->with('success', 'About Data updated successfully!');
     }
 
     public function destroy($id)
@@ -87,7 +87,7 @@ class AboutController
         $updateAbout = About::findOrFail($id);
         $updateAbout->delete();
 
-        return redirect('/dashboard/about')->with('success', 'UpdateAbout data deleted successfully.');
+        return redirect('/dashboard/about')->with('success', 'About data deleted successfully.');
     }
 
     public function getByIds($id)
@@ -95,7 +95,7 @@ class AboutController
         $updateAbout = About::find($id);
 
         if (!$updateAbout) {
-            return response()->json(['error' => 'UpdateAbout data not found'], 404);
+            return response()->json(['error' => 'About data not found'], 404);
         }
 
         return response()->json($updateAbout);

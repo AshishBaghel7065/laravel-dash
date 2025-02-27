@@ -50,9 +50,9 @@
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="status">Active / Inactive</label>
-                            <select class="form-control" id="status" name="status" required>
-                                <option value="1" >Active</option>
-                                <option value="0">Inactive</option>
+                            <select class="form-control" id="active" name="active" required>
+                                <option value="1" {{ $service->active == 1 ? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ $service->active == 0 ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>  
                     </div>

@@ -4,22 +4,6 @@
 <div class="main-content">
     <div class="container mt-4">
         <div class="add-blog-box">
-            @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-        
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-
             <div class="add-faq">
                 <h5>Create a New Blog Post</h5>
                 <a href="/dashboard/blog/category/create"><button>Add Blog Category</button></a>
@@ -83,7 +67,7 @@
                     <div class="col-lg-9">
                         <div class="form-group">
                             <label for="meta_tags">Meta Tags</label>
-                            <input type="text" class="form-control" id="meta_tags" name="meta_tags" placeholder="Comma-separated tags (e.g., tag1, tag2, tag3)">
+                            <input type="text" class="form-control" id="meta_tags" name="meta_tags" placeholder="Comma-separated tags (e.g., tag1, tag2, tag3)" required>
                         </div>
                     </div>
                     <div class="col-lg-3">

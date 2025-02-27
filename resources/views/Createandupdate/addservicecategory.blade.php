@@ -56,6 +56,7 @@
     </div>
 </form>
 
+<div id="alert-container"></div>
 <!-- Delete Confirmation Popup Modal -->
 <div id="deletePopup" class="delete-popup" style="display: none;">
     <div class="deletepopup-content">
@@ -69,6 +70,36 @@
 </div>
 
 <script>
+     function showAlert(message, type = 'error') {
+    let alertContainer = document.getElementById('alert-container');
+
+    let alertDiv = document.createElement('div');
+    alertDiv.className = `custom-alert ${type}`;
+    alertDiv.innerHTML = `
+        <p class="my-2">${message}</p>
+        <p class="btn-close" onclick="closeAlert(this)"></p>
+    `;
+
+    alertContainer.appendChild(alertDiv);
+
+    // Auto close alert after 5 seconds
+    setTimeout(() => closeAlert(alertDiv), 5000);
+
+    // ✅ Reload the page after 3 seconds if it's a success message
+    if (type === 'success') {
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
+    }
+}
+
+
+function closeAlert(element) {
+        element.parentElement.style.opacity = "0"; 
+        setTimeout(() => {
+            element.parentElement.remove();
+        }, 300);
+    }
     let deleteServiceId = null;
 
     function openDeleteModal(id) {
@@ -102,9 +133,10 @@
 
             // Close modal
             closeDeleteModal();
-            window.location.reload();
+            showAlert('Category deleted successfully!', 'success'); // ✅ Success alert
+     
         } else {
-            alert(data.message); // Show error message from Laravel
+            showAlert(data.message, 'error');
         }
     })
     .catch(error => {
