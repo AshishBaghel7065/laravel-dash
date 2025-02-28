@@ -128,6 +128,10 @@ class ServiceController
         $service = Service::findOrFail($id);
         return view('Createandupdate.updateservice', compact('service'));
     }
-
+    public function getServiceBySlug($service)
+    {
+        $service = Service::where('service', $service)->firstOrFail();
+        return view('servicepage', compact('service'));
+    }
     
 }

@@ -14,6 +14,7 @@ use App\Models\BlogCategory;
 use App\Models\ServiceCategory;
 use App\Http\View\Composers\BlogCategoryComposer;
 use App\Http\View\Composers\ServiceCategoryComposer;
+use App\Http\View\Composers\GalleryComposer;
 use Illuminate\Support\Facades\View;
 
 
@@ -43,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', SeoComposer::class); // Registered SeoComposer
         View::composer('*', BlogCategoryComposer::class);
         View::composer('*', ServiceCategoryComposer::class);
+        View::composer('*', GalleryComposer::class);
         View::composer('*', function ($view) {
             $view->with('globalBlogCategories', BlogCategory::all());
         });

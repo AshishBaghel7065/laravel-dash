@@ -111,6 +111,13 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/dashboard/gallery">
+                            <div class="blog">
+                                <i class="fa-solid fa-image"></i> Gallary
+                            </div>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/dashboard/seo">
                             <div class="blog">
                                 <i class="fa-solid fa-magnifying-glass-location"></i> SEO
@@ -129,6 +136,13 @@
                         <a href="/dashboard/appointment">
                             <div class="blog">
                                 <i class="fa-solid fa-calendar-days"></i> Appointment
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/other">
+                            <div class="blog">
+                                <i class="fa-solid fa-ellipsis"></i> Other
                             </div>
                         </a>
                     </li>

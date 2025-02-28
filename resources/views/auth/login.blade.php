@@ -23,9 +23,7 @@
                 <span class="text-red-500">{{ $message }}</span>
             @enderror
         </div>
-        <div  class="my-2">
-           <button >Forget Password</button>
-        </div>
+      
         <button type="submit">Login</button>
     </form>
 </div>

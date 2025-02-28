@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'About - My Laravel Website')
+@section('title', 'Gallary - My Laravel Website')
 @section('meta_description', 'Welcome to our home page. Explore our services.')
 @section('meta_keywords', 'home, Laravel, website, development')
 @section('meta_author', 'John Doe')
@@ -10,7 +10,9 @@
 
 
 
-
+@foreach ($galleries as $gallery)
+    <img src="{{ asset('storage/' . $gallery->image) }}" alt="Gallery Image" width="100">
+@endforeach
 
 
 

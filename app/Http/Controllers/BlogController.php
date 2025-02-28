@@ -124,5 +124,11 @@ class BlogController
             $blog = Blog::findOrFail($id);
             return view('Createandupdate.updateblog', compact('blog'));
         }
+
+        public function getBlogBySlug($slug)
+        {
+            $blog = Blog::where('slug', $slug)->firstOrFail();
+            return view('blogpage', compact('blog'));
+        }
 }
 

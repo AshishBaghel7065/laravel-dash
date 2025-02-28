@@ -97,6 +97,20 @@
                     <div class="col-lg-3">
                         <div class="show-card">
                             <div class="show-head">
+                                <p>Gallary</p>
+                                <p> <i class="fa-solid fa-image"></i></p>
+                            </div>
+                            <div class="show-body">
+                                <h1>
+                                    {{ count($galleries) }}
+                                </h1>
+                                <p>Total Gallary Images</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="show-card">
+                            <div class="show-head">
                                 <p> Achievement</p>
                                 <p><i class="fa-solid fa-trophy"></i></p>
                             </div>
