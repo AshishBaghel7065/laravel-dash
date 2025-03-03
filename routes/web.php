@@ -16,7 +16,9 @@ use App\Http\Controllers\XMLController;
 use App\Http\Controllers\BlogXMLController;
 use App\Http\Controllers\ServiceXMLController;
 use App\Http\Controllers\GalleryController;
-
+use App\Http\Controllers\PosterController;
+use App\Http\Controllers\TimetableController;
+use App\Http\Controllers\SocialLinkController;
 use Illuminate\Support\Facades\Auth;
 
     
@@ -49,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('achievement', fn() => view('dashboard.achievement'))->name('achievement');
         Route::get('seo', fn() => view('dashboard.seo'))->name('seo');
         Route::get('appointment', fn() => view('dashboard.appointment'))->name('appointment');
-        Route::get('other', fn() => view('dashboard.other'))->name('other');
+        Route::get('other', fn() => view('dashboard.otherpage'))->name('otherpage');
         Route::get('gallery', fn() => view('dashboard.gallery'))->name('gallery');
 
 
@@ -151,6 +153,16 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
 
     
+        Route::post('/posters/update/{id}', [PosterController::class, 'update'])->name('posters.update');
+
+
+        Route::get('/dashboard/timetable', [TimetableController::class, 'index'])->name('timetable.index');
+        Route::post('/dashboard/timetable/update', [TimetableController::class, 'update'])->name('timetable.update');
+
+
+        Route::put('/sociallinks/update/{id}', [SocialLinkController::class, 'update'])->name('sociallinks.update');
+        
+
         
     });
 });
@@ -161,6 +173,7 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/contact/create', [ContactController::class, 'createContact'])->name('contact.create');
 Route::get('/blog/{slug}', [BlogController::class, 'getBlogBySlug'])->name('blog.show');
 Route::get('/service/{service}', [ServiceController::class, 'getServiceBySlug'])->name('service.show');
+
 
 
 

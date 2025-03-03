@@ -150,6 +150,48 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-3">
+                        <div class="show-card">
+                            <div class="show-head">
+                                <p>Other (Poster)</p>
+                                <p> <i class="fa-solid fa-signs-post"></i></p>
+                            </div>
+                            <div class="show-body">
+                                <h1>
+                                    {{ count($posters) }}
+                                </h1>
+                                <p>Total Top Poster</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="show-card">
+                            <div class="show-head">
+                                <p>Other ( Time Table )</p>
+                                <p> <i class="fa-solid fa-clock"></i></p>
+                            </div>
+                            <div class="show-body">
+                                <h1>
+                                    {{ count($globalTimetable) }}
+                                </h1>
+                                <p>Total Days T imetable</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="show-card">
+                            <div class="show-head">
+                                <p>Other ( Social Links )</p>
+                                <p> <i class="fa-solid fa-hashtag"></i></p>
+                            </div>
+                            <div class="show-body">
+                                <h1>
+                                    {{ count($globalSocialLinks) }}
+                                </h1>
+                                <p>Total Social Media Links</p>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
               
