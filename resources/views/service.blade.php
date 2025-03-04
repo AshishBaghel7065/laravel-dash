@@ -8,9 +8,6 @@
 
 
 
-@foreach($globalTimetable as $timetable)
-    <p>{{ $timetable->day }}: {{ \Carbon\Carbon::parse($timetable->opening_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($timetable->closing_time)->format('h:i A') }}</p>
-@endforeach
 
 
 

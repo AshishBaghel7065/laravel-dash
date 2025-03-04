@@ -27,7 +27,9 @@
                     @foreach($services as $index => $service)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td><img src="{{ asset('storage/'.$service->image) }}" alt="Service Image" width="50"></td>
+<td><img src="{{ asset('services/'.$service->image) }}" alt="Service Image" width="50"></td>
+
+
                         <td>{{ $service->service }}</td>
                         <td>{{ $service->description }}</td>
                         <td>{{ $service->category }}</td>
@@ -148,8 +150,8 @@
                 document.getElementById('modal-service-name').textContent = data.service;
                 document.getElementById('modal-service-description').innerHTML = data.description;
                 document.getElementById('modal-service-category').textContent = data.category;
-                document.getElementById('modal-service-image').src = '/storage/' + data.image;
-                 console.log(data)
+                document.getElementById('modal-service-image').src = '/services/' + data.image;
+    
                 document.getElementById('serviceModal').style.display = 'block';
                 document.getElementById('overlay').style.display = 'block';
                 let myactive =""

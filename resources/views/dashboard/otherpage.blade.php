@@ -5,4 +5,5 @@
 @include('dashboard.poster')
 @include('dashboard.timetable')
 @include('dashboard.sociallink')
+
 @endsection

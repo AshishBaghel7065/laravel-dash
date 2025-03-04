@@ -39,11 +39,17 @@ class AboutController
                 'description' => 'required|string',
                 'active' => 'required|boolean',
             ]);
+if ($request->hasFile('image')) {
+    // Generate a unique filename
+    $imageName = time() . '.' . $request->image->getClientOriginalExtension();
 
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('updateabout', 'public');
-                $validatedData['image'] = $imagePath;
-            }
+    // Move the file to the public/updateabout directory
+    $request->image->move(public_path('updateabout'), $imageName);
+
+    // Store only the filename in the database
+    $validatedData['image'] = $imageName;
+}
+
 
             About::create($validatedData);
 
@@ -59,28 +65,44 @@ class AboutController
         return view('Createandupdate.updateupdateabout', compact('updateAbout'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $updateAbout = About::findOrFail($id);
-        $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
-            'active' => 'required|boolean',
-        ]);
+public function update(Request $request, $id)
+{
+    $updateAbout = About::findOrFail($id);
 
-        if ($request->hasFile('image')) {
-            $imageName = $request->image->store('updateabout_images', 'public');
-            $updateAbout->image = $imageName;
+    $request->validate([
+        'title' => 'required|string',
+        'description' => 'required|string',
+        'image' => 'nullable|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
+        'active' => 'required|boolean',
+    ]);
+
+    // Handle Image Update
+    if ($request->hasFile('image')) {
+        // Delete old image if it exists
+        if ($updateAbout->image && file_exists(public_path('updateabout/' . $updateAbout->image))) {
+            unlink(public_path('updateabout/' . $updateAbout->image));
         }
 
-        $updateAbout->title = $request->title;
-        $updateAbout->description = $request->description;
-        $updateAbout->active = $request->active;
-        $updateAbout->save();
+        // Generate a unique filename
+        $imageName = time() . '.' . $request->image->getClientOriginalExtension();
 
-        return redirect()->route('dashboard.about')->with('success', 'About Data updated successfully!');
+        // Move the file to the public/updateabout directory
+        $request->image->move(public_path('updateabout'), $imageName);
+
+        // Save the new image filename in the database
+        $updateAbout->image = $imageName;
     }
+
+    // Update other fields
+    $updateAbout->title = $request->title;
+    $updateAbout->description = $request->description;
+    $updateAbout->active = $request->active;
+    
+    $updateAbout->save();
+
+    return redirect()->route('dashboard.about')->with('success', 'About Data updated successfully!');
+}
+
 
     public function destroy($id)
     {

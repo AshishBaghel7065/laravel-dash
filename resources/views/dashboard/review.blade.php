@@ -25,7 +25,8 @@
                     @foreach ($reviews as $index => $review)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td><img src="/storage/{{ $review['user_image'] }}" alt=""></td>
+      <td><img src="{{ asset('reviews/' . $review['user_image']) }}" alt="User Image"></td>
+
                         <td>{{ $review['username'] }}</td>
                 
                         <td>{{ $review['review'] }}</td>
@@ -104,14 +105,11 @@
 
 <script>
    function fetchReview(id) {
-    console.log('Fetching review for ID:', id); // Debugging
 
     fetch(`/dashboard/review/${id}`)
         .then(response => response.json())
         .then(data => {
-            console.log('Fetched data:', data); // Debugging
-
-            // Ensure data exists
+          
             if (!data) {
                 console.error('No data received');
                 return;
@@ -122,7 +120,7 @@
             document.getElementById('modal-service-review').textContent = data.review || 'No review provided';
             document.getElementById('modal-service-posted-date').textContent = data.posted_date || 'N/A';
             document.getElementById('modal-service-stars').innerHTML = generateStarRating(data.stars || 0);
-            document.getElementById('modal-service-image').src = data.user_image ? `/storage/${data.user_image}` : 'default-image.jpg';
+            document.getElementById('modal-service-image').src = `/reviews/${data.user_image}`;
 
             // Show modal
             document.getElementById('serviceModal').style.display = 'block';

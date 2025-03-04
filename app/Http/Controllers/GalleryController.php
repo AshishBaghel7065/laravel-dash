@@ -33,26 +33,31 @@ class GalleryController
     }
 
     // Store an uploaded image
-    public function store(Request $request)
-    {
-        try {
-            $request->validate([
-                'image' => 'required|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
-            ]);
+   public function store(Request $request)
+{
+    try {
+        $request->validate([
+            'image' => 'required|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('gallery', 'public');
+        if ($request->hasFile('image')) {
+            // Generate a unique file name
+            $imageName = time() . '.' . $request->image->getClientOriginalExtension();
 
-                Gallery::create(['image' => $imagePath]);
+            // Move the file to the public/gallery directory
+            $request->image->move(public_path('gallery'), $imageName);
 
-                return redirect('dashboard/gallery')->with('success', 'Image uploaded successfully!');
-            }
+            // Save only the file name in the database
+            Gallery::create(['image' => $imageName]);
 
-            return back()->withErrors(['message' => 'Image upload failed!']);
-        } catch (ValidationException $e) {
-            return back()->withErrors($e->errors());
+            return redirect('dashboard/gallery')->with('success', 'Image uploaded successfully!');
         }
+
+        return back()->withErrors(['message' => 'Image upload failed!']);
+    } catch (ValidationException $e) {
+        return back()->withErrors($e->errors());
     }
+}
 
     // Delete an image
     public function destroy($id, Request $request)

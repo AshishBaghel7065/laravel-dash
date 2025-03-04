@@ -34,10 +34,11 @@
 <div class="gallery-container" id="galleryContainer">
     @foreach ($galleries as $image)
         <div class="gallery-item" data-id="{{ $image->id }}">
-            <img src="{{ asset('storage/' . $image->image) }}" 
-                 alt="{{ $image->image }}" 
-                 class="full-screen-trigger"
-                 data-image="{{ asset('storage/' . $image->image) }}">
+           <img src="{{ asset('gallery/' . $image->image) }}" 
+     alt="{{ $image->image }}" 
+     class="full-screen-trigger"
+     data-image="{{ asset('gallery/' . $image->image) }}">
+
             
             <div class="gallery-actions">
                 <button class="delete-btn" onclick="openDeleteModal({{ $image->id }})">

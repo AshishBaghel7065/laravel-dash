@@ -45,11 +45,18 @@ class ServiceController
                 'active' => 'required|boolean',
             ]);
     
-            // Handle Image Upload
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('services', 'public');
-                $validatedData['image'] = $imagePath;
-            }
+         // Handle Image Upload
+                if ($request->hasFile('image')) {
+                    // Generate a unique file name
+                    $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+                
+                    // Move the file to the public/services directory
+                    $request->image->move(public_path('services'), $imageName);
+                
+                    // Save only the file name in the database
+                    $validatedData['image'] = $imageName;
+                }
+
     
             // Create the service record
             Service::create($validatedData);
@@ -60,38 +67,49 @@ class ServiceController
         }
     }
 
-    public function updateService(Request $request, $id)
-    {
-        // Validate the form data
-        $validated = $request->validate([
-            'service' => 'string|max:255',
-            'category' => 'string|max:255',
-            'image' => 'image|mimes:webp,jpeg,png,jpg,gif|max:2048', // Image validation
-            'active' => 'nullable|boolean',
-            'description' => 'string',
-        ]);
-    
-        // Fetch the service to be updated
-        $service = Service::findOrFail($id);
-    
-        // Update the service details
-        $service->service = $request->service;
-        $service->category = $request->category;
-        $service->active = $request->active ?? 0;
-        $service->description = $request->description;
-    
-        // Handle the image upload
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('services', 'public');
-            $service->image = $imagePath;
+ public function updateService(Request $request, $id)
+{
+    // Validate the form data
+    $validated = $request->validate([
+        'service' => 'string|max:255',
+        'category' => 'string|max:255',
+        'image' => 'image|mimes:webp,jpeg,png,jpg,gif|max:2048', // Image validation
+        'active' => 'nullable|boolean',
+        'description' => 'string',
+    ]);
+
+    // Fetch the service to be updated
+    $service = Service::findOrFail($id);
+
+    // Update the service details
+    $service->service = $request->service;
+    $service->category = $request->category;
+    $service->active = $request->active ?? 0;
+    $service->description = $request->description;
+
+    // Handle the image update
+    if ($request->hasFile('image')) {
+        // Delete old image if it exists
+        if ($service->image && file_exists(public_path('services/' . $service->image))) {
+            unlink(public_path('services/' . $service->image));
         }
-    
-        // Save the updated service data
-        $service->save();
-    
-        // Redirect with a success message
-        return redirect()->route('dashboard.service', $service->id)->with('success', 'Service updated successfully!');
+
+        // Generate a unique filename
+        $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+
+        // Move the file to the public/services directory
+        $request->image->move(public_path('services'), $imageName);
+
+        // Save the new image filename to the model
+        $service->image = $imageName;
     }
+
+    // Save the updated service data
+    $service->save();
+
+    // Redirect with a success message
+    return redirect()->route('dashboard.service', $service->id)->with('success', 'Service updated successfully!');
+}
 
     // Delete a service
     public function destroy($id)

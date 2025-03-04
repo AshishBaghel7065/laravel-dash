@@ -11,14 +11,14 @@
             <div class="col-lg-4">
                 <div class="gallery-item my-3" data-id="{{ $image->id }}">
                     <p class="text-center pt-1">{{ $image->postername}}</p>
-                    <img 
-                        src="{{ asset('storage/' . $image->image) }}"  
-                        alt="{{ $image->image }}" 
-                        class="full-screen-trigger"
-                        data-image="{{ asset('storage/' . $image->image) }}">
-                    
+                  <img 
+    src="{{ asset('posters/' . $image->image) }}"  
+    alt="{{ $image->image }}" 
+    class="full-screen-trigger"
+    data-image="{{ asset('posters/' . $image->image) }}">
+
                     <div class="gallery-action text-center py-2">
-                        <button class="edit-btn" onclick="openUpdateModal({{ $image->id }}, '{{ asset('storage/' . $image->image) }}')">
+                      <button class="edit-btn" onclick="openUpdateModal({{ $image->id }}, '{{ asset('posters/' . $image->image) }}')">
                             Update Poster <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         </button>
                     </div>

@@ -9,10 +9,6 @@
 
 
 
-@foreach($globalSocialLinks as $link)
-    <a href="{{ $link->link }}" target="_blank">{{ $link->name }}</a>
-@endforeach
-
 
 
 

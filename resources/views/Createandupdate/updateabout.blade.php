@@ -21,9 +21,10 @@
                         <div class="form-group">
                             <label for="image">Image:</label>
                             <input type="file" class="form-control" id="image" name="image">
-                            @if ($updateAbout->image)
-                                <img src="{{ asset('storage/' . $updateAbout->image) }}" alt="Current Image" width="100" class="my-3" />
-                            @endif
+                          @if ($updateAbout->image)
+    <img src="{{ asset('updateabout/' . $updateAbout->image) }}" alt="Current Image" width="100" class="my-3" />
+@endif
+
                         </div>
                     </div>
                     <div class="col-lg-6">

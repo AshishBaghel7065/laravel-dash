@@ -9,11 +9,4 @@
 
 
 
-
-@foreach ($galleries as $gallery)
-    <img src="{{ asset('storage/' . $gallery->image) }}" alt="Gallery Image" width="100">
-@endforeach
-
-
-
 @endsection

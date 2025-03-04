@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('seo', fn() => view('dashboard.seo'))->name('seo');
         Route::get('appointment', fn() => view('dashboard.appointment'))->name('appointment');
         Route::get('other', fn() => view('dashboard.otherpage'))->name('otherpage');
+
         Route::get('gallery', fn() => view('dashboard.gallery'))->name('gallery');
 
 

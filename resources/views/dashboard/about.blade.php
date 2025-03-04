@@ -48,7 +48,8 @@
                     @foreach($about as $index => $about)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td><img src="{{ asset('storage/'.$about->image) }}" alt="image Image" width="50"></td>
+                      <td><img src="{{ asset('updateabout/'.$about->image) }}" alt="About Image" width="50"></td>
+
                         <td>{{ $about->title }}</td>
                         <td>{{ $about->description }}</td>
                         <td>
@@ -128,7 +129,8 @@ function fetchAbout(id) {
         .then(data => {
             document.getElementById('about-title').textContent = data.title;
             document.getElementById('about-description').innerHTML = data.description;
-            document.getElementById('modal-about-image').src = `{{ asset('storage/') }}/${data.image}`;
+ document.getElementById('modal-about-image').src = `{{ asset('updateabout') }}/${data.image}`;
+
             document.getElementById('viewModal').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
         })

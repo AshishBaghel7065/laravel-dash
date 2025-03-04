@@ -24,7 +24,7 @@
                         @foreach ($blogs as $index => $blog)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td><img src="{{ asset('storage/' . $blog['image']) }}" alt="Blog Image" width="50"></td>
+                           <td><img src="{{ asset('blogs/' . $blog['image']) }}" alt="Blog Image" width="50"></td>
                             <td>{{ $blog['title'] }}</td>
                             <td>{{ $blog['description'] }}</td>
                             <td>{{ $blog['publish'] }}</td>
@@ -261,8 +261,9 @@
 
         document.getElementById('modal-service-tags').innerHTML = buttons.join(' ');
 
+document.getElementById('modal-service-image').src = '{{ asset("blogs/") }}' + '/' + image;
 
-        document.getElementById('modal-service-image').src = '/storage/' + image;
+
 
         document.getElementById('serviceModal').style.display = 'block';
         document.getElementById('overlay').style.display = 'block';

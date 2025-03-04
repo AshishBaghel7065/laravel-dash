@@ -93,9 +93,12 @@
                         <div class="form-group">
                             <label for="image">Image:</label>
                             <input type="file" class="form-control" id="image" name="image">
-                            @if($blog->image)
-                                <small>Current Image: <img src="{{ asset('/storage/'.$blog->image) }}" width="200" class="my-2" target="_blank" alt="blog imag"></small>
-                            @endif
+                         @if($blog->image)
+    <small>Current Image: 
+        <img src="{{ asset('blogs/'.$blog->image) }}" width="200" class="my-2" alt="Blog Image">
+    </small>
+@endif
+
                         </div>
                     </div>
                    

@@ -33,14 +33,22 @@ class PosterController
         $poster->postername = $request->postername;
     
         // If new image is uploaded, update it
-        if ($request->hasFile('image')) {
-            // Delete old image
-            Storage::delete('public/' . $poster->image);
-    
-            // Store new image
-            $path = $request->file('image')->store('posters', 'public');
-            $poster->image = $path;
-        }
+       if ($request->hasFile('image')) {
+    // Delete old image (only if it exists)
+    if ($poster->image && file_exists(public_path('posters/' . $poster->image))) {
+        unlink(public_path('posters/' . $poster->image));
+    }
+
+    // Generate a unique file name
+    $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+
+    // Move the new file to the public/posters directory
+    $request->image->move(public_path('posters'), $imageName);
+
+    // Save only the file name in the database
+    $poster->image = $imageName;
+}
+
     
         $poster->save();
     

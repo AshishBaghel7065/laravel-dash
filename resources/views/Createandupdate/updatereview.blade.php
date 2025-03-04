@@ -48,7 +48,8 @@
                             <label for="user_image">Image:</label>
                             <input type="file" class="form-control" id="user_image" name="user_image">
                             @if($review->user_image)
-                                <img src="{{ asset('storage/'.$review->user_image) }}" alt="Review Image" width="100" class="mt-2">
+                               <img src="{{ asset('reviews/' . $review->user_image) }}" alt="Review Image" width="100" class="mt-2">
+
                             @endif
                         </div>
                     </div>

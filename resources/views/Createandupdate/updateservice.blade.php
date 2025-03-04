@@ -40,9 +40,10 @@
                             <label for="image">Image:</label>
                          
                             <input type="file" class="form-control" id="image" name="image">
-                               @if ($service->image)
-                                <img src="{{ asset('storage/' . $service->image) }}" alt="Current Image" width="100" />
-                            @endif
+                            @if ($service->image)
+    <img src="{{ asset('services/' . $service->image) }}" alt="Current Image" width="100" />
+@endif
+
                         </div>
                     </div>
 

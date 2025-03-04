@@ -33,11 +33,17 @@ class ReviewController
                 'user_image' => 'nullable|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048', // Image validation
             ]);
 
-            // Handle the file upload
-            if ($request->hasFile('user_image')) {
-                $imagePath = $request->file('user_image')->store('reviews', 'public'); // Store the image in the 'reviews' folder within 'public'
-                $validatedData['user_image'] = $imagePath; // Store the image path in the database
-            }
+           // Handle the file upload
+if ($request->hasFile('user_image')) {
+    // Generate a unique file name
+    $imageName = time() . '.' . $request->user_image->getClientOriginalExtension();
+
+    // Move the file to the public/reviews directory
+    $request->user_image->move(public_path('reviews'), $imageName);
+
+    // Save only the file name in the database
+    $validatedData['user_image'] = $imageName;
+}
 
             // Create the review with the validated data
             Review::create($validatedData);
@@ -48,37 +54,50 @@ class ReviewController
         }
     }
 
-    // Update Review with Image Upload
-    public function updateReview(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'username' => 'required|string|max:255',
-            'posted_date' => 'required|date',
-            'stars' => 'required|integer|between:1,5',
-            'review' => 'required|string|max:500',
-            'user_image' => 'nullable|image|mimes:webp,jpeg,png,jpg,gif|max:2048',
-        ]);
-    
-        $review = Review::find($id);
-    
-        if ($review) {
-            $review->username = $request->username;
-            $review->posted_date = $request->posted_date;
-            $review->stars = $request->stars;
-            $review->review = $request->review;
-    
-            if ($request->hasFile('user_image')) {
-                $imagePath = $request->file('user_image')->store('reviews', 'public');
-                $review->user_image = $imagePath;
+  // Update Review with Image Upload
+public function updateReview(Request $request, $id)
+{
+    $validated = $request->validate([
+        'username' => 'required|string|max:255',
+        'posted_date' => 'required|date',
+        'stars' => 'required|integer|between:1,5',
+        'review' => 'required|string|max:500',
+        'user_image' => 'nullable|image|mimes:webp,jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    $review = Review::find($id);
+
+    if ($review) {
+        $review->username = $request->username;
+        $review->posted_date = $request->posted_date;
+        $review->stars = $request->stars;
+        $review->review = $request->review;
+
+        // Handle the file upload
+        if ($request->hasFile('user_image')) {
+            // Generate a unique file name
+            $imageName = time() . '.' . $request->user_image->getClientOriginalExtension();
+
+            // Move the file to the public/reviews directory
+            $request->user_image->move(public_path('reviews'), $imageName);
+
+            // Delete old image if it exists
+            if ($review->user_image && file_exists(public_path('reviews/' . $review->user_image))) {
+                unlink(public_path('reviews/' . $review->user_image));
             }
-            
-            $review->save();
-    
-            return redirect()->route('dashboard.review')->with('success', 'Review updated successfully!');
+
+            // Save only the new image name in the database
+            $review->user_image = $imageName;
         }
-    
-        return back()->with('error', 'Review not found!');
+
+        $review->save();
+
+        return redirect()->route('dashboard.review')->with('success', 'Review updated successfully!');
     }
+
+    return back()->with('error', 'Review not found!');
+}
+
 
     public function getByIds($id)
     {
