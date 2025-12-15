@@ -18,7 +18,7 @@ class MailController
             'date_of_appointment' => $date_of_appointment,
         ];
 
-    Mail::to('ashishkumar440385@gmail.com')->send(new Userdetails($details));
+    Mail::to('neurigo360@gmail.com')->send(new Userdetails($details));
 
     return "Email Sent!";
 

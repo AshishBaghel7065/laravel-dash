@@ -1,11 +1,22 @@
 @extends('layouts.app')
 
-@section('title', 'Home - My Laravel Website')
-@section('meta_description', 'Welcome to our home page. Explore our services.')
-@section('meta_keywords', 'home, Laravel, website, development')
-@section('meta_author', 'John Doe')
 
 @section('content')
+
+@include('components.poster')
+@include('components.about')
+@include('components.appointment')
+<!--@include('components.service')-->
+@include('components.specialistin') 
+@include('components.proccess')
+@include('components.faq')
+@include('components.review') 
+@include('components.blog') 
+
+
+
+
+
 
 
 @endsection

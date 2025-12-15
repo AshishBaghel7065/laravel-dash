@@ -55,18 +55,19 @@ class XMLController
         $blogs = Blog::where('active', 1)->latest()->get();
 
         foreach ($blogs as $blog) {
-            $url = $xml->addChild('url');
-            $url->addChild('loc', url('/blog/' . $blog->slug));
-            $url->addChild('lastmod', $blog->updated_at->format('Y-m-d'));
-            $url->addChild('changefreq', 'weekly');
-            $url->addChild('priority', '0.7');
+    $url = $xml->addChild('url');
+    $url->addChild('loc', htmlspecialchars(url('/blog/' . $blog->slug), ENT_QUOTES | ENT_XML1, 'UTF-8'));
+    $url->addChild('lastmod', $blog->updated_at->format('Y-m-d'));
+    $url->addChild('changefreq', 'weekly');
+    $url->addChild('priority', '0.7');
 
-            if (!empty($blog->image)) {
-                $image = $url->addChild('image:image', null, 'http://www.google.com/schemas/sitemap-image/1.1');
-                $image->addChild('image:loc', url('/storage/' . $blog->image), 'http://www.google.com/schemas/sitemap-image/1.1');
-                $image->addChild('image:title', htmlspecialchars($blog->title), 'http://www.google.com/schemas/sitemap-image/1.1');
-            }
-        }
+    if (!empty($blog->image)) {
+        $image = $url->addChild('image:image', null, 'http://www.google.com/schemas/sitemap-image/1.1');
+        $image->addChild('image:loc', htmlspecialchars(url('/blogs/' . $blog->image), ENT_QUOTES | ENT_XML1, 'UTF-8'), 'http://www.google.com/schemas/sitemap-image/1.1');
+        $image->addChild('image:title', htmlspecialchars($blog->title, ENT_QUOTES | ENT_XML1, 'UTF-8'), 'http://www.google.com/schemas/sitemap-image/1.1');
+    }
+}
+
     }
 
     private function addServicesToXML($xml)
@@ -83,7 +84,7 @@ class XMLController
 
             if (!empty($service->image)) {
                 $image = $url->addChild('image:image', null, 'http://www.google.com/schemas/sitemap-image/1.1');
-                $image->addChild('image:loc', url('/storage/' . $service->image), 'http://www.google.com/schemas/sitemap-image/1.1');
+                $image->addChild('image:loc', url('/services/' . $service->image), 'http://www.google.com/schemas/sitemap-image/1.1');
                 $image->addChild('image:title', htmlspecialchars($service->service), 'http://www.google.com/schemas/sitemap-image/1.1');
             }
         }
@@ -95,14 +96,14 @@ class XMLController
 
         foreach ($galleryImages as $image) {
             $url = $xml->addChild('url');
-            $url->addChild('loc', url('/storage/'. $image->image));
+            $url->addChild('loc', url('/gallery/'. $image->image));
             $url->addChild('lastmod', $image->updated_at->format('Y-m-d'));
             $url->addChild('changefreq', 'weekly');
             $url->addChild('priority', '0.85');
 
             if (!empty($image->image)) {
                 $imageTag = $url->addChild('image:image', null, 'http://www.google.com/schemas/sitemap-image/1.1');
-                $imageTag->addChild('image:loc', url('/storage/' . $image->image), 'http://www.google.com/schemas/sitemap-image/1.1');
+                $imageTag->addChild('image:loc', url('/gallery/' . $image->image), 'http://www.google.com/schemas/sitemap-image/1.1');
                 $imageTag->addChild('image:title', htmlspecialchars($image->title), 'http://www.google.com/schemas/sitemap-image/1.1');
             }
         }

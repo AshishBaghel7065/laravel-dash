@@ -1,7 +1,57 @@
-@extends('layouts.app') {{-- Extend the main layout --}}
+@extends('layouts.app')
 
-{{-- @section('title', $service->title)  --}}
+@section('title', $service->service)
+@section('meta_description', Str::limit(strip_tags($service->description), 160))
+@section('meta_keywords', 'services, Laravel, technology, web development, business')
+@section('meta_author', 'John Doe')
 
 @section('content')
+
+@include('components.breadcrumb', ['pageTitle' => $service->service])
+
+<style>
+   
+</style>
+
+<section>
+  
+   <div class="container">
+
+    <div class="service-detail-container" >
+    <div class="service-header">
+      
+        <div class="service-contents">
+            <img src="{{ asset('services/' . $service->image) }}" alt="{{ $service->service }}" class="service-page-image">
+
+            <h1 class="my-3">{{ $service->service }}</h1>
+            <p class="my-3">{!! $service->description !!}</p>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <h3>Other Services</h3>
+        <ul class="m-0 p-0">
+            @foreach($services as $otherService)
+                <li class="recent-service">
+                    <a href="{{ url('service/' . Str::slug($otherService->service)) }}">{{ $otherService->service }}</a>
+                </li>
+            @endforeach
+        </ul>
+        <h3 class="mt-5">Other Blogs</h3>
+
+        <ul class="m-0 p-0">
+            @foreach($blogs as $otherblog)
+                <li class="recent-blog">
+                    <a  href="{{ url('blog/' . $otherblog->slug) }}">{{ $otherblog->title }}</a>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+    
+</div>
+   </div>
+   
+</section>
+
 
 @endsection

@@ -11,14 +11,17 @@ use App\Http\View\Composers\BlogComposer;
 use App\Http\View\Composers\ReviewComposer;
 use App\Http\View\Composers\SeoComposer;
 use App\Models\BlogCategory;
+use App\Models\ProductCategory;
 use App\Models\ServiceCategory;
 use App\Models\Poster;
 use App\Models\Timetable;
 use App\Models\SocialLink;
 use App\Http\View\Composers\BlogCategoryComposer;
+use App\Http\View\Composers\ProductCategoryComposer;
 use App\Http\View\Composers\ServiceCategoryComposer;
 use App\Http\View\Composers\GalleryComposer;
-
+use App\Http\View\Composers\ProductComposer;
+use App\Models\Product;
 use Illuminate\Support\Facades\View;
 
 
@@ -47,14 +50,20 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', ReviewComposer::class);
         View::composer('*', SeoComposer::class); // Registered SeoComposer
         View::composer('*', BlogCategoryComposer::class);
+        // View::composer('*', ProductCategoryComposer::class);
         View::composer('*', ServiceCategoryComposer::class);
         View::composer('*', GalleryComposer::class);
+        View::composer('*', ProductComposer::class);
+
         View::composer('*', function ($view) {
             $view->with('globalBlogCategories', BlogCategory::all());
         });
         View::composer('*', function ($view) {
             $view->with('globalServiceCategories', ServiceCategory::all());
         });
+        // View::composer('*', function ($view) {
+        //     $view->with('globalproductCategories', ProductCategory::all());
+        // });
         try {
             $posters = Poster::all();
             View::share('posters', $posters); // Share globally with all views
@@ -78,6 +87,10 @@ class AppServiceProvider extends ServiceProvider
             View::share('globalSocialLinks', []);
         }
 
+        
+      
+       
+        
 
     }
 }

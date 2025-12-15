@@ -40,6 +40,20 @@
                     <div class="col-lg-3">
                         <div class="show-card">
                             <div class="show-head">
+                                <p>Product</p>
+                                <p><i class="fa-solid fa-screwdriver-wrench"></i></p>
+                            </div>
+                            <div class="show-body">
+                                <h1>
+                                    {{ count($globalProducts) }}
+                                </h1>
+                                <p>Total Product</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="show-card">
+                            <div class="show-head">
                                 <p>Blog</p>
                                 <p><i class="fa-solid fa-comments"></i></p>
                             </div>

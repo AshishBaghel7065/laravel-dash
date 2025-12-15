@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class ServiceController 
 {
@@ -148,8 +149,14 @@ class ServiceController
     }
     public function getServiceBySlug($service)
     {
-        $service = Service::where('service', $service)->firstOrFail();
+        // Convert the service name into a slug format dynamically
+        $serviceSlug = Str::slug($service);
+    
+        // Find the service where the converted slug matches
+        $service = Service::whereRaw("LOWER(REPLACE(service, ' ', '-')) = ?", [$serviceSlug])->firstOrFail();
+    
         return view('servicepage', compact('service'));
     }
+    
     
 }

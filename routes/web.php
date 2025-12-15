@@ -11,6 +11,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SeoPageController;
 use App\Http\Controllers\ServiceCategoryController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\XMLController;
 use App\Http\Controllers\BlogXMLController;
@@ -30,9 +32,14 @@ Route::get('/', fn() => view('home'));
 Route::get('/service', fn() => view('service'));
 Route::get('/about', fn() => view('about'));
 Route::get('/blog', fn() => view('blog'));
-Route::get('/gallary', fn() => view('gallary'));
+Route::get('/captured-movement', fn() => view('gallery'));
 Route::get('/contact', fn() => view('contact'));
+Route::get('/event', fn() => view('events'));
+Route::get('/faq', fn() => view('faq'));
+Route::get('/testimonials', fn() => view('testimonials'));
+Route::get('/pediatric', fn() => view('pediatric'));
 
+Route::get('/event/{name}', [ProductController::class, 'getProductBySlug'])->name('product.slug');
 
 // Dashboard Routes (Authenticated Routes)
 Route::middleware(['auth'])->group(function () {
@@ -52,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('seo', fn() => view('dashboard.seo'))->name('seo');
         Route::get('appointment', fn() => view('dashboard.appointment'))->name('appointment');
         Route::get('other', fn() => view('dashboard.otherpage'))->name('otherpage');
+        Route::get('product', fn() => view('dashboard.product'))->name('product');
 
         Route::get('gallery', fn() => view('dashboard.gallery'))->name('gallery');
 
@@ -95,7 +103,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/service/category/create', [ServiceCategoryController::class, 'create'])->name('service.category.create');
         Route::delete('/service/category/{id}', [ServiceCategoryController::class, 'delete'])->name('service.category.delete');
              
-
+    
 
         // All about routes
         Route::get('/about/create',  fn() => view('Createandupdate.addabout'))->name('about.create.form');
@@ -195,5 +203,4 @@ Route::post('/logout', function () {
 
 // Pages Xml File 
 Route::get('/page-xml', [XMLController::class, 'generateXML']);
-Route::get('/blog-sitemap.xml', [BlogXMLController::class, 'generateXML'])->name('blog.sitemap');
-Route::get('/service-sitemap.xml', [ServiceXMLController::class, 'generateXML'])->name('service.sitemap');
+

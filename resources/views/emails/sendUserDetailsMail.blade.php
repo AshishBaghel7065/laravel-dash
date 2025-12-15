@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shivaay Dental Clinic</title>
+    <title>Neurigo360</title>
     <style>
         
          .user-details-table {
@@ -48,7 +48,7 @@
     <div style="width: 100%;background-color: #ffffff; padding: 15px;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
         
         <div style="text-align: center; color: #002533;">
-            <h1 style="font-size: 36px;text-transform: uppercase;">Promotion Adda</h1>
+            <h1 style="font-size: 36px;text-transform: uppercase;">Neurigo 360</h1>
             <p style="font-size: 19px;text-transform: uppercase;margin: 0px;">User Details Submitted</p>
         </div>
       
@@ -85,7 +85,7 @@
 
         <div style="text-align: center; margin-top: 30px; font-size: 14px; color: #777;">
             <p>If you have any questions, feel free to <a href="mailto:support@shivaaydental.com" style="color: #002533; text-decoration: none;">contact us</a>.</p>
-            <p>&copy; 2025 Promotion Adda. All rights reserved. | Developed By <a href="https://promotionadda.org/" style="text-decoration: none;color: #777;">PromotionAdda</a></p>
+            <p>&copy; 2025 Neurigo360. All rights reserved. | Developed By <a href="https://promotionadda.org/" style="text-decoration: none;color: #777;">PromotionAdda</a></p>
         </div>
 
     </div>

@@ -82,6 +82,13 @@
                             </div>
                         </a>
                     </li>
+                    {{-- <li>
+                        <a href="/dashboard/product">
+                            <div class="blog">
+                                <i class="fa-solid fa-computer"></i> Product
+                            </div>
+                        </a>
+                    </li> --}}
                     <li>
                         <a href="/dashboard/blog">
                             <div class="blog">
@@ -186,7 +193,7 @@
     </div>
 
     <footer>
-        <p class="text-sm"> Developed By <span>❤️ PromotionAdda</span> | 2025 © Company Infotech</p>
+        <p class="text-sm"> Developed By <span>❤️ PromotionAdda</span> | 2025 © Neurigo360</p>
     </footer>
     <script src="{{ asset('js/dash.js') }}"></script>
     <script>
